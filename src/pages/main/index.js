@@ -11,6 +11,18 @@ import Box from "@mui/material/Box";
 import MenuIcon from "@mui/icons-material/Menu";
 import { useState } from "react";
 import SearchBar from "../../components/SearchBar";
+import SubEntry from "../../components/SubEntry";
+
+const demoSub = {
+	title: "SPY×FAMILY",
+	ep: 1,
+	size: 213,
+	downloads: 30,
+	file: "https://speed.hetzner.de/100MB.bin",
+	cover:
+		"https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx140960-Yl5M3AiLZAMq.png",
+	author: "PaganMuffin",
+};
 
 const MainPage = () => {
 	const [drawerWidth, setDrawerWidth] = useState(240);
@@ -58,6 +70,7 @@ const MainPage = () => {
 			<Box component="main" sx={{ flexGrow: 1, p: 3 }}>
 				<Toolbar />
 				<SearchBar value={search} setFunction={setSearch} width={"70%"} />
+				<SubEntry width="70%" data={demoSub} />
 			</Box>
 		</Box>
 	);
