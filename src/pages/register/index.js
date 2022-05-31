@@ -1,4 +1,5 @@
 import { Button, Paper, Typography } from "@mui/material";
+import { useSnackbar } from "notistack";
 import { useEffect, useState } from "react";
 import CustomInputWithLabel from "../../components/CustomInputwithLabel";
 import { validateEmail, checkPassword } from "../../utills";
@@ -8,14 +9,31 @@ const Register = () => {
 	const [username, setUsername] = useState("");
 	const [password, setPassword] = useState("");
 	const [passwordConfirm, setPasswordConfirm] = useState("");
+	const { enqueueSnackbar } = useSnackbar();
 
 	useEffect(() => {
 		console.log("Login page rendered");
 	}, []);
 
 	const checkData = () => {
-		console.log("email", validateEmail(email));
-		console.log("password", checkPassword(password));
+		if (!validateEmail(email)) {
+			enqueueSnackbar("Email is not valid", {
+				variant: "error",
+				preventDuplicate: true,
+			});
+		}
+		if (!checkPassword(password)) {
+			enqueueSnackbar("Password is not valid", {
+				variant: "error",
+				preventDuplicate: true,
+			});
+		}
+		if (username === "") {
+			enqueueSnackbar("Username is not valid", {
+				variant: "error",
+				preventDuplicate: true,
+			});
+		}
 	};
 
 	const checkPasswords = () => {
