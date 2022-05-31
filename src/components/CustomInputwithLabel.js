@@ -13,7 +13,7 @@ const CustomInputWithLabel = ({ value, setFunction, label, type }) => {
 			</Typography>
 			<InputBase
 				style={{
-					background: "white",
+					background: "rgba(0, 0, 0, 0.07)",
 					paddingLeft: "0.5rem",
 					paddingRight: "0.5rem",
 					paddingTop: "0.25rem",
@@ -26,6 +26,7 @@ const CustomInputWithLabel = ({ value, setFunction, label, type }) => {
 				}}
 				label={label}
 				value={value}
+				placeholder={label}
 				type={type}
 				onChange={(e) => {
 					setFunction(e.target.value);

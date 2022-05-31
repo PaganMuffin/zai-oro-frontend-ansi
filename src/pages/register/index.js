@@ -1,7 +1,7 @@
 import { Button, Paper, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import CustomInputWithLabel from "../../components/CustomInputwithLabel";
-import validateEmail from "../../utills";
+import { validateEmail, checkPassword } from "../../utills";
 
 const Register = () => {
 	const [email, setEmail] = useState("");
@@ -14,7 +14,8 @@ const Register = () => {
 	}, []);
 
 	const checkData = () => {
-		console.log(email);
+		console.log("email", validateEmail(email));
+		console.log("password", checkPassword(password));
 	};
 
 	const checkPasswords = () => {
@@ -48,7 +49,9 @@ const Register = () => {
 					alignItems: "center",
 					padding: 50,
 				}}>
-				<Typography variant="h4" style={{ paddingTop: 50, paddingBottom: 50 }}>
+				<Typography
+					variant="h4"
+					style={{ paddingTop: 50, paddingBottom: 50, color: "#4A5EA4" }}>
 					Zarejestruj się
 				</Typography>
 				<CustomInputWithLabel
@@ -80,7 +83,7 @@ const Register = () => {
 					sx={{ marginTop: 5 }}
 					onClick={handleSubmit}
 					disabled={!checkPasswords()}>
-					Zarejestruj się
+					<Typography variant="subtitle1">Zarejestruj się</Typography>
 				</Button>
 			</Paper>
 		</div>
