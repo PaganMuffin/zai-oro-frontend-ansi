@@ -1,15 +1,14 @@
 import { Route, Routes } from "react-router-dom";
-import MainPage from "./pages/MainPage";
+import Login from "./pages/login";
+import MainPage from "./pages/main";
+import Register from "./pages/register";
 
 const App = () => {
 	return (
-		<div
-			style={{
-				display: "flex",
-				flexDirection: "column",
-				height: "100vh",
-			}}>
+		<div>
 			<Routes>
+				<Route path="/login" element={<Login />} />
+				<Route path="/register" element={<Register />} />
 				<Route path="/" element={<MainPage />} />
 			</Routes>
 		</div>
