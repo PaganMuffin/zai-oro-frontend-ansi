@@ -10,11 +10,12 @@ import Box from "@mui/material/Box";
 
 import MenuIcon from "@mui/icons-material/Menu";
 import { useState } from "react";
+import SearchBar from "../../components/SearchBar";
 
 const MainPage = () => {
 	const [drawerWidth, setDrawerWidth] = useState(240);
 	const [open, setOpen] = useState(false);
-
+	const [search, setSearch] = useState("");
 	return (
 		<Box sx={{ display: "flex" }}>
 			<CssBaseline />
@@ -56,6 +57,7 @@ const MainPage = () => {
 			</Drawer>
 			<Box component="main" sx={{ flexGrow: 1, p: 3 }}>
 				<Toolbar />
+				<SearchBar value={search} setFunction={setSearch} width={"70%"} />
 			</Box>
 		</Box>
 	);
