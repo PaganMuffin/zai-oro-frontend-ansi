@@ -69,8 +69,22 @@ const MainPage = () => {
 			</Drawer>
 			<Box component="main" sx={{ flexGrow: 1, p: 3 }}>
 				<Toolbar />
-				<SearchBar value={search} setFunction={setSearch} width={"70%"} />
-				<SubEntry width="70%" data={demoSub} />
+				<Box
+					style={{
+						display: "flex",
+						flexDirection: "column",
+						gap: 25,
+					}}>
+					<SearchBar value={search} setFunction={setSearch} width={"50%"} />
+					<SubEntry width="50%" data={demoSub} />
+					<SubEntry width="50%" data={demoSub} />
+					<SubEntry width="50%" data={demoSub} />
+					<SubEntry width="50%" data={demoSub} />
+					<SubEntry width="50%" data={demoSub} />
+					<SubEntry width="50%" data={demoSub} />
+					<SubEntry width="50%" data={demoSub} />
+					<SubEntry width="50%" data={demoSub} />
+				</Box>
 			</Box>
 		</Box>
 	);

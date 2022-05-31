@@ -1,8 +1,9 @@
-import { Paper, Box, Typography } from "@mui/material";
+import { Paper, Box, Typography, Button } from "@mui/material";
 
 const SubEntry = ({ data, width = "100%" }) => {
 	return (
 		<Paper
+			elevation={10}
 			style={{
 				display: "flex",
 				margin: "auto",
@@ -23,15 +24,35 @@ const SubEntry = ({ data, width = "100%" }) => {
 				style={{
 					display: "flex",
 					flexDirection: "column",
+					gap: 10,
+					width: "100%",
 				}}>
-				<Typography>
+				<Typography variant="h5">
 					{data.title} #{data.ep}
 				</Typography>
-				<Typography>Rozmiar pliku: {data.size}</Typography>
-				<Typography>Ilość pobrań: {data.downloads}</Typography>
-				<Typography>Autor: {data.author}</Typography>
-				<a href={data.file} download="100MB.bin" target="_blank">
-					Pobierz
+				<Box
+					style={{
+						display: "flex",
+						flexDirection: "row",
+						justifyContent: "space-evenly",
+						flex: 1,
+					}}>
+					<Typography variant="h6">Rozmiar pliku: {data.size}Kb</Typography>
+					<Typography variant="h6">Ilość pobrań: {data.downloads}</Typography>
+					<Typography variant="h6">Autor: {data.author}</Typography>
+				</Box>
+				<a
+					href={data.file}
+					download="100MB.bin"
+					target="_blank"
+					style={{
+						textDecoration: "none",
+						alignSelf: "end",
+						marginBottom: "0 auto",
+					}}>
+					<Button variant="contained" size="large">
+						Pobierz
+					</Button>
 				</a>
 			</Box>
 		</Paper>
