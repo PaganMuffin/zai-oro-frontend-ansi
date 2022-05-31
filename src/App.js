@@ -25,7 +25,7 @@ const App = () => {
 				<Routes>
 					<Route path="/login" element={<Login />} />
 					<Route path="/register" element={<Register />} />
-					<Route path="/" element={<MainPage />} />
+					<Route path="/*" element={<MainPage />} />
 				</Routes>
 			</SnackbarProvider>
 		</div>
