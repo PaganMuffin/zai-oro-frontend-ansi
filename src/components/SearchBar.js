@@ -1,6 +1,6 @@
 import { Search } from "@mui/icons-material";
-import { InputBase } from "@mui/material";
-
+import { IconButton, InputBase } from "@mui/material";
+import MoreVertIcon from '@mui/icons-material/MoreVert';
 const SearchBar = ({ value, setFunction, width = "100%" }) => {
 	return (
 		<div
@@ -38,6 +38,9 @@ const SearchBar = ({ value, setFunction, width = "100%" }) => {
 					width: "100%",
 				}}
 			/>
+			<IconButton>
+				<MoreVertIcon/>
+			</IconButton>
 		</div>
 	);
 };
