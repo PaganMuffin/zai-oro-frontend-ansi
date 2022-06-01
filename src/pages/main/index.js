@@ -12,6 +12,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import { useState } from "react";
 import SearchBar from "../../components/SearchBar";
 import SubEntry from "../../components/SubEntry";
+import DrawerProfilCard from "../../components/DrawerProfilCard";
 
 const demoSub = {
 	title: "SPY×FAMILY",
@@ -26,7 +27,7 @@ const demoSub = {
 
 const MainPage = () => {
 	const [drawerWidth, setDrawerWidth] = useState(240);
-	const [open, setOpen] = useState(false);
+	const [open, setOpen] = useState(true);
 	const [search, setSearch] = useState("");
 	return (
 		<Box sx={{ display: "flex" }}>
@@ -63,7 +64,7 @@ const MainPage = () => {
 				}}>
 				<Toolbar />
 				<Box sx={{ overflow: "auto" }}>
-					<div>PROFIL</div>
+					<DrawerProfilCard/>
 					<div>ADD</div>
 				</Box>
 			</Drawer>
