@@ -38,7 +38,7 @@ const SearchBar = ({ value, setFunction, width = "100%" }) => {
 					width: "100%",
 				}}
 			/>
-			<IconButton>
+			<IconButton sx={{marginRight:1}}>
 				<MoreVertIcon/>
 			</IconButton>
 		</div>

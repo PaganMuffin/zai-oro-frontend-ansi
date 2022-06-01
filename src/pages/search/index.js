@@ -1,5 +1,6 @@
 import { Box } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useLocation, useParams, useSearchParams } from "react-router-dom";
 import SearchBar from "../../components/SearchBar";
 import SubEntry from "../../components/SubEntry";
 const demoSub = {
@@ -12,8 +13,25 @@ const demoSub = {
 		"https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx140960-Yl5M3AiLZAMq.png",
 	author: "PaganMuffin",
 };
-const SearchPage = () => {
+const SearchPage = (props) => {
     const [search, setSearch] = useState("");
+    const [searchParams, setSearchParams] = useSearchParams();
+    const location = useLocation()
+    useEffect(() => {
+        console.log(location.search)
+        const q = new URLSearchParams(location.search)
+        let qObj = {}
+        for (const [key, value] of q) {
+            qObj[key] = value
+        }
+        qObj["dasda"] = Math.floor(new Date().getTime()/1000)
+        setSearchParams(qObj)
+    },[])
+    
+    useEffect(() => {
+        console.log(searchParams.get("dasda"))
+    }, [searchParams])
+
     return (
         <Box
         style={{
