@@ -12,7 +12,18 @@ const demoSub = {
 };
 
 const SubView = () => {
-	return <SubEntry width="50%" data={demoSub} />;
+	return (
+		<div
+			style={{
+				display: "flex",
+				flexDirection: "column",
+				alignItems: "center",
+			}}>
+			<div>
+				<SubEntry width="100%" data={demoSub} />;
+			</div>
+		</div>
+	);
 };
 
 export default SubView;
