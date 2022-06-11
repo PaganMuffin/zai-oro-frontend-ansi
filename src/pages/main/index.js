@@ -15,6 +15,7 @@ import SubEntry from "../../components/SubEntry";
 import DrawerProfilCard from "../../components/DrawerProfilCard";
 import { Route, Routes } from "react-router-dom";
 import SubView from "../sub-view";
+import AddSub from "../add-page";
 
 const demoSub = {
 	title: "SPY×FAMILY",
@@ -97,6 +98,7 @@ const MainPage = () => {
 				<Toolbar />
 				<Routes>
 					<Route path="/view/:id" element={<SubView />} />
+					<Route path="/add" element={<AddSub />} />
 					<Route path="*" element={<SearchView />} />
 				</Routes>
 			</Box>
