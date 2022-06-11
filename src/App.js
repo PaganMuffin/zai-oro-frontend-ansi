@@ -6,6 +6,7 @@ import { XIcon } from "./icons";
 import Login from "./pages/login";
 import MainPage from "./pages/main";
 import Register from "./pages/register";
+import SubView from "./pages/sub-view";
 
 const App = () => {
 	const notistackRef = createRef();
@@ -25,6 +26,7 @@ const App = () => {
 				<Routes>
 					<Route path="/login" element={<Login />} />
 					<Route path="/register" element={<Register />} />
+					<Route path="/view/:id" element={<SubView />} />
 					<Route path="/*" element={<MainPage />} />
 				</Routes>
 			</SnackbarProvider>
