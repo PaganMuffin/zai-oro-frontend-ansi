@@ -1,3 +1,5 @@
+import { Box, Divider, Paper, Typography } from "@mui/material";
+import CommentBox from "../../components/CommentBox";
 import SubEntry from "../../components/SubEntry";
 
 const demoSub = {
@@ -11,6 +13,12 @@ const demoSub = {
 	author: "PaganMuffin",
 };
 
+const demoComment = {
+	author: "PaganMuffin",
+	created_at: new Date().getTime() - 6 * 60 * 60 * 1000,
+	content: "asdasdasdasdasdasdasdasdasdasdasdasdasdasdasd",
+};
+
 const SubView = () => {
 	return (
 		<div
@@ -18,10 +26,21 @@ const SubView = () => {
 				display: "flex",
 				flexDirection: "column",
 				alignItems: "center",
+				gap: 10,
 			}}>
-			<div>
-				<SubEntry width="100%" data={demoSub} />;
-			</div>
+			<SubEntry width="50%" data={demoSub} />;
+			<Box
+				sx={{
+					display: "flex",
+					width: "50%",
+					flexDirection: "column",
+					gap: 2,
+				}}>
+				<CommentBox comment={demoComment} />
+				<CommentBox comment={demoComment} />
+				<CommentBox comment={demoComment} />
+				<CommentBox comment={demoComment} />
+			</Box>
 		</div>
 	);
 };
