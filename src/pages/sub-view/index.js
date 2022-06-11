@@ -26,15 +26,15 @@ const SubView = () => {
 				display: "flex",
 				flexDirection: "column",
 				alignItems: "center",
-				gap: 10,
+				gap: "3rem",
 			}}>
-			<SubEntry width="50%" data={demoSub} />;
+			<SubEntry width="50%" data={demoSub} />
 			<Box
 				sx={{
 					display: "flex",
 					width: "50%",
 					flexDirection: "column",
-					gap: 2,
+					gap: "1rem",
 				}}>
 				<CommentBox comment={demoComment} />
 				<CommentBox comment={demoComment} />
