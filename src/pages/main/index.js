@@ -34,6 +34,7 @@ const SearchView = () => {
 			style={{
 				display: "flex",
 				flexDirection: "column",
+				alignItems: "center",
 				gap: 25,
 			}}>
 			<SearchBar value={search} setFunction={setSearch} width={"50%"} />
@@ -51,7 +52,7 @@ const SearchView = () => {
 
 const MainPage = () => {
 	const [drawerWidth, setDrawerWidth] = useState(240);
-	const [open, setOpen] = useState(true);
+	const [open, setOpen] = useState(false);
 
 	return (
 		<Box sx={{ display: "flex" }}>

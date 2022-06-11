@@ -6,7 +6,6 @@ const SubEntry = ({ data, width = "100%" }) => {
 			elevation={10}
 			style={{
 				display: "flex",
-				margin: "auto",
 				width: width,
 				padding: 10,
 				gap: 10,
