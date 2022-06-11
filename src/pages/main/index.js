@@ -13,6 +13,8 @@ import { useState } from "react";
 import SearchBar from "../../components/SearchBar";
 import SubEntry from "../../components/SubEntry";
 import DrawerProfilCard from "../../components/DrawerProfilCard";
+import { Route, Routes } from "react-router-dom";
+import SubView from "../sub-view";
 
 const demoSub = {
 	title: "SPY×FAMILY",
@@ -25,10 +27,32 @@ const demoSub = {
 	author: "PaganMuffin",
 };
 
+const SearchView = () => {
+	const [search, setSearch] = useState("");
+	return (
+		<Box
+			style={{
+				display: "flex",
+				flexDirection: "column",
+				gap: 25,
+			}}>
+			<SearchBar value={search} setFunction={setSearch} width={"50%"} />
+			<SubEntry width="50%" data={demoSub} />
+			<SubEntry width="50%" data={demoSub} />
+			<SubEntry width="50%" data={demoSub} />
+			<SubEntry width="50%" data={demoSub} />
+			<SubEntry width="50%" data={demoSub} />
+			<SubEntry width="50%" data={demoSub} />
+			<SubEntry width="50%" data={demoSub} />
+			<SubEntry width="50%" data={demoSub} />
+		</Box>
+	);
+};
+
 const MainPage = () => {
 	const [drawerWidth, setDrawerWidth] = useState(240);
 	const [open, setOpen] = useState(true);
-	const [search, setSearch] = useState("");
+
 	return (
 		<Box sx={{ display: "flex" }}>
 			<CssBaseline />
@@ -64,28 +88,16 @@ const MainPage = () => {
 				}}>
 				<Toolbar />
 				<Box sx={{ overflow: "auto" }}>
-					<DrawerProfilCard/>
+					<DrawerProfilCard />
 					<div>ADD</div>
 				</Box>
 			</Drawer>
 			<Box component="main" sx={{ flexGrow: 1, p: 3 }}>
 				<Toolbar />
-				<Box
-					style={{
-						display: "flex",
-						flexDirection: "column",
-						gap: 25,
-					}}>
-					<SearchBar value={search} setFunction={setSearch} width={"50%"} />
-					<SubEntry width="50%" data={demoSub} />
-					<SubEntry width="50%" data={demoSub} />
-					<SubEntry width="50%" data={demoSub} />
-					<SubEntry width="50%" data={demoSub} />
-					<SubEntry width="50%" data={demoSub} />
-					<SubEntry width="50%" data={demoSub} />
-					<SubEntry width="50%" data={demoSub} />
-					<SubEntry width="50%" data={demoSub} />
-				</Box>
+				<Routes>
+					<Route path="/view/:id" element={<SubView />} />
+					<Route path="*" element={<SearchView />} />
+				</Routes>
 			</Box>
 		</Box>
 	);
