@@ -6,7 +6,6 @@ const SubEntry = ({ data, width = "100%" }) => {
 			elevation={10}
 			style={{
 				display: "flex",
-				margin: "auto",
 				width: width,
 				padding: 10,
 				gap: 10,
@@ -35,6 +34,7 @@ const SubEntry = ({ data, width = "100%" }) => {
 						display: "flex",
 						flexDirection: "row",
 						justifyContent: "space-evenly",
+						gap: 10,
 						flex: 1,
 					}}>
 					<Typography variant="h6">Rozmiar pliku: {data.size}Kb</Typography>
