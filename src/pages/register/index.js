@@ -1,7 +1,7 @@
 import { Button, Paper, Typography } from "@mui/material";
 import { useSnackbar } from "notistack";
 import { useEffect, useState } from "react";
-import CustomInputWithLabel from "../../components/CustomInputwithLabel";
+import CustomInputWithLabel from "../../components/CustomInputWithLabel";
 import { validateEmail, checkPassword } from "../../utills";
 
 const Register = () => {

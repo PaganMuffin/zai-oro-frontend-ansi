@@ -1,6 +1,6 @@
 import { Button, Paper, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
-import CustomInputWithLabel from "../../components/CustomInputwithLabel";
+import CustomInputWithLabel from "../../components/CustomInputWithLabel";
 
 const Login = () => {
 	const [email, setEmail] = useState("");

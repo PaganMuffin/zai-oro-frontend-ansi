@@ -21,7 +21,22 @@ const AddSub = () => {
 	const [file, setFile] = useState(undefined);
 
 	const StepThree = () => {
-		return <div>Podgląd ostateczny akceptacja</div>;
+		return (
+			<Paper
+				elevation={10}
+				style={{
+					display: "flex",
+					flexDirection: "column",
+					gap: "1rem",
+					padding: 10,
+				}}>
+				<AniListSeriesCard data={selectedShow} showDescription={false} />
+				<Typography>{ep}</Typography>
+				<Typography>{desc}</Typography>
+				<Typography>{author}</Typography>
+				<Typography>{file.name}</Typography>
+			</Paper>
+		);
 	};
 
 	useEffect(() => {
