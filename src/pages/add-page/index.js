@@ -9,60 +9,16 @@ import { Button, Paper, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import AniListSeriesCard from "../../components/addComponents/AniListSeriesCard";
 import StepOne from "../../components/addComponents/StepOne";
+import StepTwo from "../../components/addComponents/StepTwo";
 import CustomInputWithLabel from "../../components/CustomInputWithLabel";
 
 const AddSub = () => {
 	const [step, setStep] = useState(1);
 	const [selectedShow, setSelectedShow] = useState(-1);
-
-	const StepTwo = () => {
-		const [ep, setEp] = useState(1);
-		const [desc, setDesc] = useState("");
-		const [author, setAuthor] = useState("");
-		const [file, setFile] = useState(undefined);
-
-		useEffect(() => {
-			console.log(file);
-		}, [file]);
-		return (
-			<Paper
-				elevation={10}
-				style={{
-					display: "flex",
-					flexDirection: "column",
-					gap: "1rem",
-					padding: 10,
-				}}>
-				<AniListSeriesCard data={selectedShow} showDescription={false} />
-				<CustomInputWithLabel
-					value={ep}
-					setFunction={setEp}
-					label={"Odcinek"}
-					type={"number"}
-				/>
-				<CustomInputWithLabel
-					value={desc}
-					setFunction={setDesc}
-					label={"Opis"}
-					type={"text"}
-					multiline={true}
-				/>
-				<CustomInputWithLabel
-					value={author}
-					setFunction={setAuthor}
-					label={"Autor"}
-					type={"text"}
-				/>
-				<CustomInputWithLabel
-					//value={file}
-					setFunction={setFile}
-					label={"Plik"}
-					type={"file"}
-					accept=".ass"
-				/>
-			</Paper>
-		);
-	};
+	const [ep, setEp] = useState(1);
+	const [desc, setDesc] = useState("");
+	const [author, setAuthor] = useState("");
+	const [file, setFile] = useState(undefined);
 
 	const StepThree = () => {
 		return <div>Podgląd ostateczny akceptacja</div>;
@@ -84,7 +40,17 @@ const AddSub = () => {
 			{step === 1 ? (
 				<StepOne value={selectedShow} setFunction={setSelectedShow} />
 			) : step === 2 ? (
-				<StepTwo />
+				<StepTwo
+					data={selectedShow}
+					ep={ep}
+					setEp={setEp}
+					desc={desc}
+					setDesc={setDesc}
+					author={author}
+					setAuthor={setAuthor}
+					file={file}
+					setFile={setFile}
+				/>
 			) : (
 				<StepThree />
 			)}

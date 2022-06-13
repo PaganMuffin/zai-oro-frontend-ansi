@@ -19,7 +19,7 @@ const AniListSeriesCard = ({
 				display: "flex",
 				gap: "1rem",
 				padding: 5,
-				cursor: "pointer",
+				cursor: setFunction == null ? null : "pointer",
 			}}>
 			<div
 				style={{
