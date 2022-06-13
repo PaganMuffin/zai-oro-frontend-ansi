@@ -5,16 +5,31 @@
  *
  */
 
-import { Button, Typography } from "@mui/material";
+import { Button, Paper, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
+import AniListSeriesCard from "../../components/addComponents/AniListSeriesCard";
 import StepOne from "../../components/addComponents/StepOne";
+import CustomInputWithLabel from "../../components/CustomInputWithLabel";
 
 const AddSub = () => {
 	const [step, setStep] = useState(1);
 	const [selectedShow, setSelectedShow] = useState(-1);
 
 	const StepTwo = () => {
-		return <div>Dodanie numeru odcinka, opisu, pliku</div>;
+		const [ep, setEp] = useState(1);
+
+		return (
+			<Paper>
+				<div>Dodanie numeru odcinka, opisu, pliku</div>
+				<AniListSeriesCard data={selectedShow} showDescription={false} />
+				<CustomInputWithLabel
+					value={ep}
+					setFunction={setEp}
+					label={"Odcinek"}
+					type={"number"}
+				/>
+			</Paper>
+		);
 	};
 
 	const StepThree = () => {

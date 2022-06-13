@@ -1,14 +1,19 @@
 import { Paper, Box, Typography, useTheme } from "@mui/material";
 
-const AniListSeriesCard = ({ data, value = null, setFunction = null }) => {
+const AniListSeriesCard = ({
+	data,
+	value = null,
+	setFunction = null,
+	showDescription = true,
+}) => {
 	const theme = useTheme();
 	return (
 		<Paper
 			onClick={() => setFunction(data)}
 			elevation={5}
 			style={{
-				backgroundColor: data.id === value.id ? theme.palette.info.dark : null,
-				color: data.id === value.id ? "white" : "black",
+				backgroundColor: data.id === value?.id ? theme.palette.info.dark : null,
+				color: data.id === value?.id ? "white" : "black",
 				display: "flex",
 				gap: "1rem",
 				padding: 5,
@@ -27,9 +32,11 @@ const AniListSeriesCard = ({ data, value = null, setFunction = null }) => {
 				<Typography variant="h5" fontWeight={"bold"}>
 					{data.title.userPreferred}
 				</Typography>
-				<Typography fontWeight={"400"} variant="h6">
-					<div dangerouslySetInnerHTML={{ __html: data.description }} />
-				</Typography>
+				{showDescription == true ? (
+					<Typography fontWeight={"400"} variant="h6">
+						<div dangerouslySetInnerHTML={{ __html: data.description }} />
+					</Typography>
+				) : null}
 				<Typography>
 					{data.season} {data.seasonYear}
 				</Typography>
