@@ -17,7 +17,12 @@ const AddSub = () => {
 
 	const StepTwo = () => {
 		const [ep, setEp] = useState(1);
+		const [desc, setDesc] = useState("");
+		const [file, setFile] = useState(undefined);
 
+		useEffect(() => {
+			console.log(file);
+		}, [file]);
 		return (
 			<Paper>
 				<div>Dodanie numeru odcinka, opisu, pliku</div>
@@ -27,6 +32,19 @@ const AddSub = () => {
 					setFunction={setEp}
 					label={"Odcinek"}
 					type={"number"}
+				/>
+				<CustomInputWithLabel
+					value={desc}
+					setFunction={setDesc}
+					label={"Opis"}
+					type={"text"}
+					multiline={true}
+				/>
+				<CustomInputWithLabel
+					value={file}
+					setFunction={setFile}
+					label={"Plik"}
+					type={"file"}
 				/>
 			</Paper>
 		);
