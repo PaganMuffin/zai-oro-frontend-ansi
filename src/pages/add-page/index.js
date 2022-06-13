@@ -18,14 +18,21 @@ const AddSub = () => {
 	const StepTwo = () => {
 		const [ep, setEp] = useState(1);
 		const [desc, setDesc] = useState("");
+		const [author, setAuthor] = useState("");
 		const [file, setFile] = useState(undefined);
 
 		useEffect(() => {
 			console.log(file);
 		}, [file]);
 		return (
-			<Paper>
-				<div>Dodanie numeru odcinka, opisu, pliku</div>
+			<Paper
+				elevation={10}
+				style={{
+					display: "flex",
+					flexDirection: "column",
+					gap: "1rem",
+					padding: 10,
+				}}>
 				<AniListSeriesCard data={selectedShow} showDescription={false} />
 				<CustomInputWithLabel
 					value={ep}
@@ -41,10 +48,17 @@ const AddSub = () => {
 					multiline={true}
 				/>
 				<CustomInputWithLabel
+					value={author}
+					setFunction={setAuthor}
+					label={"Autor"}
+					type={"text"}
+				/>
+				<CustomInputWithLabel
 					//value={file}
 					setFunction={setFile}
 					label={"Plik"}
 					type={"file"}
+					accept=".ass"
 				/>
 			</Paper>
 		);

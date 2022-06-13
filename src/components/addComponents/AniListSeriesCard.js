@@ -9,7 +9,9 @@ const AniListSeriesCard = ({
 	const theme = useTheme();
 	return (
 		<Paper
-			onClick={() => setFunction(data)}
+			onClick={() => {
+				if (setFunction != null) setFunction(data);
+			}}
 			elevation={5}
 			style={{
 				backgroundColor: data.id === value?.id ? theme.palette.info.dark : null,

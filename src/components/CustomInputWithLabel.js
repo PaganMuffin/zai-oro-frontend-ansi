@@ -6,6 +6,8 @@ const CustomInputWithLabel = ({
 	label,
 	type,
 	multiline = false,
+	width = "100%",
+	accept = null,
 }) => {
 	return (
 		<div
@@ -29,11 +31,12 @@ const CustomInputWithLabel = ({
 					filter: "drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25))",
 				}}
 				sx={{
-					width: "350px",
+					width: width,
 				}}
 				label={label}
 				value={type == "file" ? value.name : value}
 				type={type}
+				inputProps={{ accept: accept }}
 				onChange={(e) => {
 					if (type == "file") {
 						setFunction(e.target.files[0]);
