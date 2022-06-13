@@ -5,12 +5,11 @@
  *
  */
 
-import { Button, Paper, Typography } from "@mui/material";
-import { useEffect, useState } from "react";
-import AniListSeriesCard from "../../components/addComponents/AniListSeriesCard";
+import { Button, Typography } from "@mui/material";
+import { useState } from "react";
 import StepOne from "../../components/addComponents/StepOne";
+import StepThree from "../../components/addComponents/StepThree";
 import StepTwo from "../../components/addComponents/StepTwo";
-import CustomInputWithLabel from "../../components/CustomInputWithLabel";
 
 const AddSub = () => {
 	const [step, setStep] = useState(1);
@@ -20,28 +19,16 @@ const AddSub = () => {
 	const [author, setAuthor] = useState("");
 	const [file, setFile] = useState(undefined);
 
-	const StepThree = () => {
-		return (
-			<Paper
-				elevation={10}
-				style={{
-					display: "flex",
-					flexDirection: "column",
-					gap: "1rem",
-					padding: 10,
-				}}>
-				<AniListSeriesCard data={selectedShow} showDescription={false} />
-				<Typography>{ep}</Typography>
-				<Typography>{desc}</Typography>
-				<Typography>{author}</Typography>
-				<Typography>{file.name}</Typography>
-			</Paper>
-		);
-	};
+	const handleSubmit = () => {
+		const fd = new FormData();
+		fd.append("show_id", selectedShow.id);
+		fd.append("ep", ep);
+		fd.append("desc", desc);
+		fd.append("author", author);
+		fd.append("file", file);
 
-	useEffect(() => {
-		console.log(selectedShow);
-	}, [selectedShow]);
+		fetch("http://localhost", { method: "POST", body: fd });
+	};
 
 	return (
 		<div
@@ -67,7 +54,13 @@ const AddSub = () => {
 					setFile={setFile}
 				/>
 			) : (
-				<StepThree />
+				<StepThree
+					data={selectedShow}
+					ep={ep}
+					desc={desc}
+					author={author}
+					file={file}
+				/>
 			)}
 			<div
 				style={{
@@ -80,12 +73,18 @@ const AddSub = () => {
 					onClick={() => setStep(step - 1)}>
 					<Typography variant="h6">Cofnij</Typography>
 				</Button>
-				<Button
-					variant="contained"
-					disabled={step === 3}
-					onClick={() => setStep(step + 1)}>
-					<Typography variant="h6">Dalej</Typography>
-				</Button>
+				{step === 3 ? (
+					<Button variant="contained" onClick={() => handleSubmit()}>
+						<Typography variant="h6">Wyślij</Typography>
+					</Button>
+				) : (
+					<Button
+						variant="contained"
+						disabled={step === 3}
+						onClick={() => setStep(step + 1)}>
+						<Typography variant="h6">Dalej</Typography>
+					</Button>
+				)}
 			</div>
 		</div>
 	);

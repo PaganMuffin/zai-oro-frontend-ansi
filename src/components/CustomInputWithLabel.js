@@ -8,6 +8,7 @@ const CustomInputWithLabel = ({
 	multiline = false,
 	width = "100%",
 	accept = null,
+	readOnly = false,
 }) => {
 	return (
 		<div
@@ -20,6 +21,7 @@ const CustomInputWithLabel = ({
 				{label}
 			</Typography>
 			<InputBase
+				readOnly={readOnly}
 				multiline={multiline}
 				style={{
 					background: "white",
