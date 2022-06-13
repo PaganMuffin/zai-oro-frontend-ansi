@@ -1,7 +1,7 @@
 import { InputBase, Typography } from "@mui/material";
 
 const CustomInputWithLabel = ({
-	value,
+	value = "",
 	setFunction,
 	label,
 	type,
@@ -32,7 +32,7 @@ const CustomInputWithLabel = ({
 					width: "350px",
 				}}
 				label={label}
-				value={value}
+				value={type == "file" ? value.name : value}
 				type={type}
 				onChange={(e) => {
 					if (type == "file") {

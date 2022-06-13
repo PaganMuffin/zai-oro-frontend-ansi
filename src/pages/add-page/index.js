@@ -41,7 +41,7 @@ const AddSub = () => {
 					multiline={true}
 				/>
 				<CustomInputWithLabel
-					value={file}
+					//value={file}
 					setFunction={setFile}
 					label={"Plik"}
 					type={"file"}
