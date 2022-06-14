@@ -8,7 +8,6 @@ import demoData from "./demoData.json";
 const StepOne = ({ value, setFunction }) => {
 	const [search, setSearch] = useState("");
 
-	useEffect(() => {}, []);
 	return (
 		<Paper
 			elevation={10}
@@ -21,7 +20,7 @@ const StepOne = ({ value, setFunction }) => {
 			<Typography variant="h4">Wyszukaj anime</Typography>
 			<SearchBar value={search} setFunction={setSearch} />
 			<Box style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
-				{demoData.map((data, idx) => {
+				{demoData.slice(0, 1).map((data, idx) => {
 					return (
 						<AniListSeriesCard
 							key={idx}

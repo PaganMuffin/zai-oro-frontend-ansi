@@ -5,7 +5,7 @@
  *
  */
 
-import { Button, Typography } from "@mui/material";
+import { Button, Slide, Typography } from "@mui/material";
 import { useState } from "react";
 import StepOne from "../../components/addComponents/StepOne";
 import StepThree from "../../components/addComponents/StepThree";
@@ -80,7 +80,11 @@ const AddSub = () => {
 				) : (
 					<Button
 						variant="contained"
-						disabled={step === 3}
+						disabled={
+							(!file && step === 2) ||
+							(step === 1 && selectedShow === -1) ||
+							(step === 2 && author.trim().length == 0)
+						}
 						onClick={() => setStep(step + 1)}>
 						<Typography variant="h6">Dalej</Typography>
 					</Button>
