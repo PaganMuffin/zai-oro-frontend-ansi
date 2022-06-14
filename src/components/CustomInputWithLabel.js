@@ -1,6 +1,15 @@
 import { InputBase, Typography } from "@mui/material";
 
-const CustomInputWithLabel = ({ value, setFunction, label, type }) => {
+const CustomInputWithLabel = ({
+	value = "",
+	setFunction,
+	label,
+	type,
+	multiline = false,
+	width = "100%",
+	accept = null,
+	readOnly = false,
+}) => {
 	return (
 		<div
 			style={{
@@ -12,8 +21,10 @@ const CustomInputWithLabel = ({ value, setFunction, label, type }) => {
 				{label}
 			</Typography>
 			<InputBase
+				readOnly={readOnly}
+				multiline={multiline}
 				style={{
-					background: "rgba(0, 0, 0, 0.07)",
+					background: "white",
 					paddingLeft: "0.5rem",
 					paddingRight: "0.5rem",
 					paddingTop: "0.25rem",
@@ -22,14 +33,18 @@ const CustomInputWithLabel = ({ value, setFunction, label, type }) => {
 					filter: "drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25))",
 				}}
 				sx={{
-					width: "350px",
+					width: width,
 				}}
 				label={label}
-				value={value}
-				placeholder={label}
+				value={type == "file" ? value.name : value}
 				type={type}
+				inputProps={{ accept: accept }}
 				onChange={(e) => {
-					setFunction(e.target.value);
+					if (type == "file") {
+						setFunction(e.target.files[0]);
+					} else {
+						setFunction(e.target.value);
+					}
 				}}
 			/>
 		</div>
