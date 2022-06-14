@@ -5,7 +5,6 @@ import CustomInputWithLabel from "../CustomInputWithLabel";
 import AniListSeriesCard from "./AniListSeriesCard";
 
 const StepThree = ({ data, ep, desc, author, file }) => {
-	console.log(desc);
 	return (
 		<Paper
 			elevation={10}

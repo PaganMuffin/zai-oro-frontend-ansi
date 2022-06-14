@@ -18,10 +18,6 @@ const StepTwo = ({
 	file,
 	setFile,
 }) => {
-	useEffect(() => {
-		console.log(file);
-	}, []);
-
 	return (
 		<Paper
 			elevation={10}
