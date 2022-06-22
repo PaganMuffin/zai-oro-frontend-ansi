@@ -1,4 +1,15 @@
-import { Typography } from "@mui/material";
+import {
+	Table,
+	TableBody,
+	TableCell,
+	TableContainer,
+	TableHead,
+	TableRow,
+	Typography,
+} from "@mui/material";
+import SeriesEpisodeList from "../../components/SeriesEpisodeList";
+import CollapsibleTable from "../../components/SeriesEpisodeList";
+import { getRandomIntInclusive } from "../../utills";
 import "./index.css";
 
 const demoData = {
@@ -55,6 +66,34 @@ const demoData = {
 	},
 };
 
+const demoSubs = [
+	{
+		episode: 1,
+		subList: [
+			{
+				id: "1",
+				author: "PaganMuffin",
+				addedAt: new Date().getTime() - getRandomIntInclusive(10000, 50000),
+			},
+			{
+				id: "2",
+				author: "Ogórek",
+				addedAt: new Date().getTime() - getRandomIntInclusive(10000, 50000),
+			},
+		],
+	},
+	{
+		episode: 2,
+		subList: [
+			{
+				id: "3",
+				author: "PaganMuffin",
+				addedAt: new Date().getTime() - getRandomIntInclusive(10000, 50000),
+			},
+		],
+	},
+];
+
 const SeriesView = () => {
 	return (
 		<div style={{ position: "relative", padding: "0 2rem 0 2rem" }}>
@@ -93,7 +132,9 @@ const SeriesView = () => {
 				</div>
 			</div>
 			{/* RESZTA STRONY */}
-			<div className="container" style={{ paddingTop: "1rem", width: "70%" }}>
+			<div
+				className="container"
+				style={{ paddingTop: "1rem", width: "70%", margin: "auto" }}>
 				<img
 					className="cover"
 					src={demoData.coverImage.large}
@@ -121,7 +162,9 @@ const SeriesView = () => {
 				<div className="info">
 					season, format, episodes, mal button, al button
 				</div>
-				<div className="ep-list">LISTA ODCINKÓW</div>
+				<dic className="ep-list">
+					<SeriesEpisodeList data={demoSubs} />
+				</dic>
 			</div>
 		</div>
 	);
