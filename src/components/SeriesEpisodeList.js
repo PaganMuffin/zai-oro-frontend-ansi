@@ -58,11 +58,13 @@ const SeriesEpisodeList = ({ data }) => {
 					return (
 						<Accordion defaultExpanded={true}>
 							<AccordionSummary expandIcon={<ExpandMoreIcon />}>
-								<div style={{ display: "flex" }}>
+								<div style={{ display: "flex", width: "100%" }}>
 									<Typography style={{ flexGrow: "1" }}>
 										Odcinek {x.episode}
 									</Typography>
-									<Typography>Wersje {x.subList.length}</Typography>
+									<Typography style={{ marginRight: "2rem" }}>
+										Wersje {x.subList.length}
+									</Typography>
 								</div>
 							</AccordionSummary>
 							<AccordionDetails

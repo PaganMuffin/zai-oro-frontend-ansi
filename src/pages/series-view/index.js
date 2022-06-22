@@ -1,4 +1,6 @@
 import {
+	Button,
+	Chip,
 	Table,
 	TableBody,
 	TableCell,
@@ -134,14 +136,14 @@ const SeriesView = () => {
 			{/* RESZTA STRONY */}
 			<div
 				className="container"
-				style={{ paddingTop: "1rem", width: "70%", margin: "auto" }}>
+				style={{ paddingTop: "2rem", width: "70%", margin: "auto" }}>
 				<img
 					className="cover"
 					src={demoData.coverImage.large}
 					style={{
 						aspectRatio: 8 / 11,
 						borderRadius: "10px",
-						placeSelf: "center",
+						placeSelf: "start",
 						height: "25rem",
 					}}
 				/>
@@ -154,13 +156,22 @@ const SeriesView = () => {
 				</Typography>
 				<Typography
 					fontWeight={"400"}
-					variant="h6"
 					className="desc"
 					style={{ color: "white" }}>
 					{demoData.description}
 				</Typography>
-				<div className="info">
-					season, format, episodes, mal button, al button
+				<div
+					className="info"
+					style={{ display: "flex", flexDirection: "column", gap: 20 }}>
+					<div style={{ display: "flex", gap: 20 }}>
+						<Chip label={`${demoData.season} ${demoData.seasonYear}`} />
+						<Chip label={`${demoData.format}`} />
+						<Chip label={`Odcinki ${demoData.episodes}`} />
+					</div>
+					<div style={{ display: "flex", gap: 20 }}>
+						<Button variant="contained">MyAnimeList</Button>
+						<Button variant="contained">AniList</Button>
+					</div>
 				</div>
 				<dic className="ep-list">
 					<SeriesEpisodeList data={demoSubs} />
