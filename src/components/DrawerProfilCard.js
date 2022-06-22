@@ -3,13 +3,18 @@ import { Link } from "react-router-dom";
 
 const DrawerProfilCard = () => {
 	return (
-		<Paper
-			style={{ display: "flex", padding: 10, gap: 10, alignItems: "center" }}>
+		<Box
+			style={{
+				display: "flex",
+				padding: 10,
+				gap: 10,
+				alignItems: "center",
+				color: `rgb(${process.env.REACT_APP_TEXT})`,
+			}}>
 			<Link
 				to={"/user/1/PaganMuffin"}
 				style={{
 					textDecoration: "none",
-					color: "black",
 				}}>
 				<Avatar sx={{ width: 56, height: 56 }} />
 			</Link>
@@ -18,7 +23,7 @@ const DrawerProfilCard = () => {
 					to={"/user/1/PaganMuffin"}
 					style={{
 						textDecoration: "none",
-						color: "black",
+						color: `rgb(${process.env.REACT_APP_TEXT})`,
 					}}>
 					<Typography variant="h6">PaganMuffin</Typography>
 				</Link>
@@ -28,7 +33,7 @@ const DrawerProfilCard = () => {
 						to={"/user/settings"}
 						style={{
 							textDecoration: "none",
-							color: "black",
+							color: `rgb(${process.env.REACT_APP_TEXT})`,
 						}}>
 						<Typography variant="subtitle2">Ustawienia</Typography>
 					</Link>
@@ -36,13 +41,13 @@ const DrawerProfilCard = () => {
 						to={"/user/messeges"}
 						style={{
 							textDecoration: "none",
-							color: "black",
+							color: `rgb(${process.env.REACT_APP_TEXT})`,
 						}}>
 						<Typography variant="subtitle2">Wiadomosci</Typography>
 					</Link>
 				</Box>
 			</Box>
-		</Paper>
+		</Box>
 	);
 };
 

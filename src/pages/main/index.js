@@ -64,7 +64,7 @@ const SearchView = () => {
 const MainPage = (props) => {
 	const [drawerWidth, setDrawerWidth] = useState(240);
 	const [open, setOpen] = useState(false);
-	const [appBarTransparent, setAppBarTransparent] = useState(0);
+	const [appBarTransparent, setAppBarTransparent] = useState(0.2);
 
 	useEffect(() => {
 		const handleScroll = () => {
@@ -78,27 +78,31 @@ const MainPage = (props) => {
 	}, []);
 
 	return (
-		<Box>
+		<Box style={{ display: "flex", flexDirection: "column", height: "100vh" }}>
 			<CssBaseline />
 			<AppBar
 				style={{
-					background: `rgba(21,31,46,${appBarTransparent})`,
-					"-webkit-box-shadow": `0px 16px 25px -15px rgba(21,31,46, ${appBarTransparent})`,
-					"-moz-box-shadow": `0px 16px 25px -15px rgba(21,31,46, ${appBarTransparent})`,
-					"box-shadow": `0px 16px 25px -15px rgba(21,31,46, ${appBarTransparent})`,
+					background: `rgba(${process.env.REACT_APP_FOREGROUND},${appBarTransparent})`,
+					WebkitBoxShadow: `0px 16px 25px -15px rgba(${process.env.REACT_APP_FOREGROUND}, ${appBarTransparent})`,
+					MozBoxShadow: `0px 16px 25px -15px rgba(${process.env.REACT_APP_FOREGROUND}, ${appBarTransparent})`,
+					boxShadow: `0px 16px 25px -15px rgba(${process.env.REACT_APP_FOREGROUND}, ${appBarTransparent})`,
 				}}
 				position="fixed"
 				sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
 				<Toolbar>
 					<IconButton
 						edge="start"
-						style={{ color: "white" }}
+						style={{ color: `rgb(${process.env.REACT_APP_TEXT_LIGHTER})` }}
 						onClick={() => {
 							setOpen(!open);
 						}}>
 						<MenuIcon />
 					</IconButton>
-					<Typography variant="h6">ANSI</Typography>
+					<Typography
+						variant="h6"
+						style={{ color: `rgb(${process.env.REACT_APP_TEXT_LIGHTER})` }}>
+						ANSI
+					</Typography>
 				</Toolbar>
 			</AppBar>
 			<Drawer
@@ -113,11 +117,16 @@ const MainPage = (props) => {
 					flexShrink: 0,
 					[`& .MuiDrawer-paper`]: {
 						width: drawerWidth,
+						background: `rgb(${process.env.REACT_APP_FOREGROUND})`,
+						color: `rgb(${process.env.REACT_APP_TEXT})`,
 						boxSizing: "border-box",
 					},
 				}}>
 				<Toolbar />
-				<Box sx={{ overflow: "auto" }}>
+				<Box
+					sx={{
+						overflow: "auto",
+					}}>
 					<DrawerProfilCard />
 					<div>ADD</div>
 				</Box>
@@ -131,7 +140,16 @@ const MainPage = (props) => {
 					<Route path="*" element={<SearchView />} />
 				</Routes>
 			</Box>
-			<Box>STOPKA</Box>
+			<Box
+				style={{
+					height: "100px",
+					marginTop: "5rem",
+					padding: "2rem",
+					textAlign: "center",
+					background: `rgb(${process.env.REACT_APP_FOREGROUND})`,
+				}}>
+				<Typography variant="h6">Made with {"<3"}</Typography>
+			</Box>
 		</Box>
 	);
 };

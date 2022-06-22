@@ -205,15 +205,15 @@ const SeriesView = () => {
 					fontWeight={400}
 					variant="h6"
 					className="desc"
-					style={{ color: "white" }}>
+					style={{ color: `rgb(${process.env.REACT_APP_TEXT})` }}>
 					{demoData.description}
 				</Typography>
 
-				<dic
+				<div
 					className="ep-list"
 					style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
 					<SeriesEpisodeList data={demoSubs} />
-				</dic>
+				</div>
 			</div>
 		</div>
 	);

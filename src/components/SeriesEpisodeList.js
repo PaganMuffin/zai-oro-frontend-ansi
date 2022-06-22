@@ -37,6 +37,7 @@ const SeriesEpisodeList = ({ data }) => {
 				if (x.subList.length == 1) {
 					return (
 						<Paper
+							key={x.id}
 							className="containerSeriesList"
 							style={{
 								background: `rgb(${process.env.REACT_APP_FOREGROUND})`,
@@ -89,7 +90,7 @@ const SeriesEpisodeList = ({ data }) => {
 									gap: "1rem",
 								}}>
 								{x.subList.map((y) => {
-									return <Row data={y} ep={x.episode} />;
+									return <Row key={y.id} data={y} ep={x.episode} />;
 								})}
 							</AccordionDetails>
 						</Accordion>
