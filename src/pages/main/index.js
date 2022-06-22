@@ -5,11 +5,12 @@ import {
 	Drawer,
 	CssBaseline,
 	IconButton,
+	useScrollTrigger,
 } from "@mui/material";
 import Box from "@mui/material/Box";
 
 import MenuIcon from "@mui/icons-material/Menu";
-import { useState } from "react";
+import { cloneElement, useEffect, useState } from "react";
 import SearchBar from "../../components/SearchBar";
 import SubEntry from "../../components/SubEntry";
 import DrawerProfilCard from "../../components/DrawerProfilCard";
@@ -40,7 +41,14 @@ const SearchView = () => {
 				alignItems: "center",
 				gap: 25,
 			}}>
-			<SearchBar value={search} setFunction={setSearch} width={"50%"} />
+			<Toolbar />
+			<SearchBar
+				background={`rgb(${process.env.REACT_APP_FOREGROUND})`}
+				color={`rgb(${process.env.REACT_APP_TEXT})`}
+				value={search}
+				setFunction={setSearch}
+				width={"50%"}
+			/>
 			<SubEntry width="50%" data={demoSub} />
 			<SubEntry width="50%" data={demoSub} />
 			<SubEntry width="50%" data={demoSub} />
@@ -53,14 +61,32 @@ const SearchView = () => {
 	);
 };
 
-const MainPage = () => {
+const MainPage = (props) => {
 	const [drawerWidth, setDrawerWidth] = useState(240);
 	const [open, setOpen] = useState(false);
+	const [appBarTransparent, setAppBarTransparent] = useState(0);
+
+	useEffect(() => {
+		const handleScroll = () => {
+			const show = window.scrollY;
+			setAppBarTransparent(show / 150 > 1 ? 1 : show / 150);
+		};
+		document.addEventListener("scroll", handleScroll);
+		return () => {
+			document.removeEventListener("scroll", handleScroll);
+		};
+	}, []);
 
 	return (
-		<Box sx={{ display: "flex" }}>
+		<Box>
 			<CssBaseline />
 			<AppBar
+				style={{
+					background: `rgba(21,31,46,${appBarTransparent})`,
+					"-webkit-box-shadow": `0px 16px 25px -15px rgba(21,31,46, ${appBarTransparent})`,
+					"-moz-box-shadow": `0px 16px 25px -15px rgba(21,31,46, ${appBarTransparent})`,
+					"box-shadow": `0px 16px 25px -15px rgba(21,31,46, ${appBarTransparent})`,
+				}}
 				position="fixed"
 				sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
 				<Toolbar>
@@ -96,8 +122,7 @@ const MainPage = () => {
 					<div>ADD</div>
 				</Box>
 			</Drawer>
-			<Box component="main" sx={{ flexGrow: 1, paddingTop: 3 }}>
-				<Toolbar />
+			<Box component="main" style={{ flexGrow: 1 }}>
 				<Routes>
 					<Route path="/view/:id" element={<SubView />} />
 					<Route path="/user/:id/*" element={<User />} />
@@ -106,6 +131,7 @@ const MainPage = () => {
 					<Route path="*" element={<SearchView />} />
 				</Routes>
 			</Box>
+			<Box>STOPKA</Box>
 		</Box>
 	);
 };

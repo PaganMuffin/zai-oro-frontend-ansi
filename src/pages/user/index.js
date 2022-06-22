@@ -4,6 +4,7 @@ import {
 	CardActionArea,
 	CardMedia,
 	Paper,
+	Toolbar,
 	Tooltip,
 	Typography,
 } from "@mui/material";
@@ -38,7 +39,6 @@ const User = () => {
 	}, []);
 
 	useEffect(() => {
-		console.log("????");
 		if (data != null) {
 			if (debounceSearchTerm) {
 				const reg = new RegExp(debounceSearchTerm, "gi");
@@ -59,6 +59,7 @@ const User = () => {
 				flexDirection: "column",
 				gap: 20,
 			}}>
+			<Toolbar />
 			<Paper style={{ display: "flex", gap: "2rem", padding: 10 }}>
 				<Avatar sx={{ width: 96, height: 96 }} />
 				<Box style={{ display: "flex", flexDirection: "column" }}>

@@ -7,6 +7,7 @@ import {
 	TableContainer,
 	TableHead,
 	TableRow,
+	Toolbar,
 	Typography,
 } from "@mui/material";
 import SeriesEpisodeList from "../../components/SeriesEpisodeList";
@@ -98,7 +99,7 @@ const demoSubs = [
 
 const SeriesView = () => {
 	return (
-		<div style={{ position: "relative", padding: "0 2rem 0 2rem" }}>
+		<div style={{ position: "relative", padding: "0 2rem" }}>
 			{/* BANNER */}
 			<div
 				style={{
@@ -110,14 +111,14 @@ const SeriesView = () => {
 					top: 0,
 					zIndex: -1,
 					width: "100%",
-					height: "17.5rem",
+					height: "25rem",
 				}}>
 				<div
 					style={{
 						backgroundImage: `url(${demoData.coverImage.large})`,
 						position: "relative",
 						width: "100%",
-						height: "17.5rem",
+						height: "25rem",
 						backgroundSize: "cover",
 						backgroundPosition: "center 25%",
 					}}>
@@ -134,16 +135,17 @@ const SeriesView = () => {
 				</div>
 			</div>
 			{/* RESZTA STRONY */}
+			<Toolbar />
 			<div
 				className="container"
-				style={{ paddingTop: "2rem", width: "70%", margin: "auto" }}>
+				style={{ paddingTop: "2rem", margin: "auto", width: "70%" }}>
 				<img
 					className="cover"
 					src={demoData.coverImage.large}
 					style={{
 						aspectRatio: 8 / 11,
 						borderRadius: "10px",
-						placeSelf: "start",
+						placeSelf: "center",
 						height: "25rem",
 					}}
 				/>
@@ -154,26 +156,62 @@ const SeriesView = () => {
 					style={{ color: "white" }}>
 					{demoData.title.userPreferred}
 				</Typography>
+				<div
+					className="info"
+					style={{ display: "flex", flexDirection: "column", gap: 20 }}>
+					<div style={{ display: "flex", gap: 20, flexGrow: "1" }}>
+						<Chip
+							style={{
+								color: `rgb(${process.env.REACT_APP_TEXT})`,
+								background: `rgb(${process.env.REACT_APP_FOREGROUND})`,
+							}}
+							label={`${demoData.season} ${demoData.seasonYear}`}
+						/>
+						<Chip
+							style={{
+								color: `rgb(${process.env.REACT_APP_TEXT})`,
+								background: `rgb(${process.env.REACT_APP_FOREGROUND})`,
+							}}
+							label={`${demoData.format}`}
+						/>
+						<Chip
+							style={{
+								color: `rgb(${process.env.REACT_APP_TEXT})`,
+								background: `rgb(${process.env.REACT_APP_FOREGROUND})`,
+							}}
+							label={`Odcinki ${demoData.episodes}`}
+						/>
+					</div>
+					<div style={{ display: "flex", gap: 20 }}>
+						<Button
+							style={{
+								color: `rgb(${process.env.REACT_APP_TEXT})`,
+								background: `rgb(${process.env.REACT_APP_FOREGROUND})`,
+							}}
+							variant="contained">
+							MyAnimeList
+						</Button>
+						<Button
+							style={{
+								color: `rgb(${process.env.REACT_APP_TEXT})`,
+								background: `rgb(${process.env.REACT_APP_FOREGROUND})`,
+							}}
+							variant="contained">
+							AniList
+						</Button>
+					</div>
+				</div>
 				<Typography
-					fontWeight={"400"}
+					fontWeight={400}
+					variant="h6"
 					className="desc"
 					style={{ color: "white" }}>
 					{demoData.description}
 				</Typography>
-				<div
-					className="info"
-					style={{ display: "flex", flexDirection: "column", gap: 20 }}>
-					<div style={{ display: "flex", gap: 20 }}>
-						<Chip label={`${demoData.season} ${demoData.seasonYear}`} />
-						<Chip label={`${demoData.format}`} />
-						<Chip label={`Odcinki ${demoData.episodes}`} />
-					</div>
-					<div style={{ display: "flex", gap: 20 }}>
-						<Button variant="contained">MyAnimeList</Button>
-						<Button variant="contained">AniList</Button>
-					</div>
-				</div>
-				<dic className="ep-list">
+
+				<dic
+					className="ep-list"
+					style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
 					<SeriesEpisodeList data={demoSubs} />
 				</dic>
 			</div>

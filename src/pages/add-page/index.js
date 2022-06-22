@@ -5,7 +5,7 @@
  *
  */
 
-import { Button, Slide, Typography } from "@mui/material";
+import { Button, Slide, Toolbar, Typography } from "@mui/material";
 import { useState } from "react";
 import StepOne from "../../components/addComponents/StepOne";
 import StepThree from "../../components/addComponents/StepThree";
@@ -39,6 +39,7 @@ const AddSub = () => {
 				flexDirection: "column",
 				gap: "1rem",
 			}}>
+			<Toolbar />
 			{step === 1 ? (
 				<StepOne value={selectedShow} setFunction={setSelectedShow} />
 			) : step === 2 ? (

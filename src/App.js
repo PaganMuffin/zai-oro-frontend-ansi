@@ -1,6 +1,6 @@
 import { Button } from "@mui/material";
 import { SnackbarProvider } from "notistack";
-import { createRef } from "react";
+import { createRef, useEffect } from "react";
 import { Route, Routes } from "react-router-dom";
 import { XIcon } from "./icons";
 import Login from "./pages/login";
@@ -12,6 +12,11 @@ const App = () => {
 	const onClickDismiss = (key) => () => {
 		notistackRef.current.closeSnackbar(key);
 	};
+
+	useEffect(() => {
+		document.body.style.backgroundColor = `rgb(${process.env.REACT_APP_BACKGROUND})`;
+		document.body.style.color = `rgb(${process.env.REACT_APP_TEXT})`;
+	}, []);
 	return (
 		<div>
 			<SnackbarProvider

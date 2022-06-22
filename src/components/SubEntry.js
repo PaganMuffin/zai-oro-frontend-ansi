@@ -8,6 +8,8 @@ const SubEntry = ({ data, width = "100%" }) => {
 				width: width,
 				padding: 10,
 				gap: 10,
+				background: `rgb(${process.env.REACT_APP_FOREGROUND})`,
+				color: `rgb(${process.env.REACT_APP_TEXT})`,
 			}}>
 			<div
 				style={{

@@ -12,7 +12,9 @@ import "./SeriesEpisodeList.css";
 
 const Row = ({ data, ep }) => {
 	return (
-		<div className="containerSeriesList" style={{ alignItems: "center" }}>
+		<div
+			className="containerSeriesList"
+			style={{ alignItems: "center", alignContent: "center" }}>
 			<Typography className="episode"></Typography>
 			<Typography className="author">{data.author}</Typography>
 			<Button className="comments" variant="contained">
@@ -37,8 +39,11 @@ const SeriesEpisodeList = ({ data }) => {
 						<Paper
 							className="containerSeriesList"
 							style={{
+								background: `rgb(${process.env.REACT_APP_FOREGROUND})`,
+								color: `rgb(${process.env.REACT_APP_TEXT})`,
 								alignItems: "center",
-								minHeigh: "64px",
+								alignContent: "center",
+								height: "48px",
 								padding: "10px 16px 10px 12px",
 							}}>
 							<Typography className="episode">Odcinek {x.episode}</Typography>
@@ -56,8 +61,18 @@ const SeriesEpisodeList = ({ data }) => {
 					);
 				} else {
 					return (
-						<Accordion defaultExpanded={true}>
-							<AccordionSummary expandIcon={<ExpandMoreIcon />}>
+						<Accordion
+							defaultExpanded={true}
+							style={{
+								background: `rgb(${process.env.REACT_APP_FOREGROUND})`,
+								color: `rgb(${process.env.REACT_APP_TEXT})`,
+							}}>
+							<AccordionSummary
+								expandIcon={
+									<ExpandMoreIcon
+										style={{ color: `rgb(${process.env.REACT_APP_TEXT})` }}
+									/>
+								}>
 								<div style={{ display: "flex", width: "100%" }}>
 									<Typography style={{ flexGrow: "1" }}>
 										Odcinek {x.episode}

@@ -2,13 +2,20 @@ import { Search } from "@mui/icons-material";
 import { InputBase, Paper } from "@mui/material";
 import React from "react";
 
-const SearchBar = ({ value, setFunction, width = "100%" }) => {
+const SearchBar = ({
+	value,
+	setFunction,
+	width = "100%",
+	color = "black",
+	background = "white",
+}) => {
 	return (
 		<Paper
 			style={{
 				display: "flex",
 				width: width,
-				background: "white",
+				background: background,
+				color: color,
 				borderRadius: "10px",
 				alignItems: "center",
 				height: "50px",
@@ -17,6 +24,7 @@ const SearchBar = ({ value, setFunction, width = "100%" }) => {
 				fontSize="large"
 				sx={{
 					width: "50px",
+					color: color,
 				}}
 			/>
 			<InputBase
@@ -32,6 +40,7 @@ const SearchBar = ({ value, setFunction, width = "100%" }) => {
 					paddingBottom: "0.25rem",
 					borderTopRightRadius: "inherit",
 					borderBottomRightRadius: "inherit",
+					color: color,
 				}}
 				sx={{
 					width: "100%",
