@@ -1,4 +1,4 @@
-import { InputBase, Typography } from "@mui/material";
+import { InputBase, Paper, Typography } from "@mui/material";
 
 const CustomInputWithLabel = ({
 	value = "",
@@ -20,33 +20,34 @@ const CustomInputWithLabel = ({
 			<Typography style={{ color: "#4A5EA4" }} variant="h6">
 				{label}
 			</Typography>
-			<InputBase
-				readOnly={readOnly}
-				multiline={multiline}
-				style={{
-					background: "white",
-					paddingLeft: "0.5rem",
-					paddingRight: "0.5rem",
-					paddingTop: "0.25rem",
-					paddingBottom: "0.25rem",
-					borderRadius: "5px",
-					filter: "drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25))",
-				}}
-				sx={{
-					width: width,
-				}}
-				label={label}
-				value={type == "file" ? value.name : value}
-				type={type}
-				inputProps={{ accept: accept }}
-				onChange={(e) => {
-					if (type == "file") {
-						setFunction(e.target.files[0]);
-					} else {
-						setFunction(e.target.value);
-					}
-				}}
-			/>
+			<Paper>
+				<InputBase
+					readOnly={readOnly}
+					multiline={multiline}
+					style={{
+						background: "white",
+						paddingLeft: "0.5rem",
+						paddingRight: "0.5rem",
+						paddingTop: "0.25rem",
+						paddingBottom: "0.25rem",
+						borderRadius: "5px",
+					}}
+					sx={{
+						width: width,
+					}}
+					label={label}
+					value={type == "file" ? value.name : value}
+					type={type}
+					inputProps={{ accept: accept }}
+					onChange={(e) => {
+						if (type == "file") {
+							setFunction(e.target.files[0]);
+						} else {
+							setFunction(e.target.value);
+						}
+					}}
+				/>
+			</Paper>
 		</div>
 	);
 };

@@ -3,7 +3,6 @@ import { Divider, Paper, Typography } from "@mui/material";
 const CommentBox = ({ comment, width = "100%" }) => {
 	return (
 		<Paper
-			elevation={10}
 			style={{
 				width: width,
 			}}>

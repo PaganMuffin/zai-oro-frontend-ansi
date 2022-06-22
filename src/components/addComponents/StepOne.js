@@ -10,7 +10,6 @@ const StepOne = ({ value, setFunction }) => {
 
 	return (
 		<Paper
-			elevation={10}
 			style={{
 				display: "flex",
 				flexDirection: "column",

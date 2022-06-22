@@ -7,7 +7,6 @@ import AniListSeriesCard from "./AniListSeriesCard";
 const StepThree = ({ data, ep, desc, author, file }) => {
 	return (
 		<Paper
-			elevation={10}
 			style={{
 				display: "flex",
 				flexDirection: "column",
@@ -29,10 +28,8 @@ const StepThree = ({ data, ep, desc, author, file }) => {
 				</Typography>
 				<Paper
 					className="container"
-					elevation={0}
 					data-color-mode="light"
 					style={{
-						filter: "drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25))",
 						paddingLeft: "0.5rem",
 						paddingRight: "0.5rem",
 						paddingTop: "0.25rem",
@@ -55,10 +52,8 @@ const StepThree = ({ data, ep, desc, author, file }) => {
 				</Typography>
 				<Paper
 					className="container"
-					elevation={0}
 					data-color-mode="light"
 					style={{
-						filter: "drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25))",
 						paddingLeft: "0.5rem",
 						paddingRight: "0.5rem",
 						paddingTop: "0.25rem",
