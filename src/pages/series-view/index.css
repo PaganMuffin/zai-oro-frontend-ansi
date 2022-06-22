@@ -1,0 +1,32 @@
+.container {
+	display: grid;
+	grid-template-columns: auto auto;
+	grid-template-rows: 1fr 1fr 0.5fr auto;
+	gap: 2rem 2rem;
+	grid-auto-flow: row;
+	grid-template-areas:
+		"cover title"
+		"cover desc"
+		"info info"
+		"ep-list ep-list";
+}
+
+.info {
+	grid-area: info;
+}
+
+.cover {
+	grid-area: cover;
+}
+
+.title {
+	grid-area: title;
+}
+
+.desc {
+	grid-area: desc;
+}
+
+.ep-list {
+	grid-area: ep-list;
+}

@@ -1,0 +1,25 @@
+.containerSeriesList {
+	display: grid;
+	grid-template-columns: 1fr 1fr 2fr 1fr 1fr 1fr;
+	gap: 1rem 1rem;
+	grid-template-areas: "episode author freeSpace comments download added";
+}
+
+.freeSpace {
+	grid-area: freeSpace;
+}
+.episode {
+	grid-area: episode;
+}
+.author {
+	grid-area: author;
+}
+.comments {
+	grid-area: comments;
+}
+.download {
+	grid-area: download;
+}
+.added {
+	grid-area: added;
+}
