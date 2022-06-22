@@ -51,11 +51,22 @@ const User = () => {
 	if (data == null) return <div>LOADING</div>;
 
 	return (
-		<div>
-			<Paper>
-				<Avatar sx={{ width: 56, height: 56 }} />
-				<Typography>{data.username}</Typography>
-				<Typography>{data.subCount}</Typography>
+		<div
+			style={{
+				width: "70%",
+				margin: "auto",
+				display: "flex",
+				flexDirection: "column",
+				gap: 20,
+			}}>
+			<Paper style={{ display: "flex", gap: "2rem", padding: 10 }}>
+				<Avatar sx={{ width: 96, height: 96 }} />
+				<Box style={{ display: "flex", flexDirection: "column" }}>
+					<Typography variant="h4" style={{ flexGrow: "1" }}>
+						{data.username}
+					</Typography>
+					<Typography>Napisy: {data.subCount}</Typography>
+				</Box>
 			</Paper>
 			<SearchBar value={search} setFunction={setSearch} />
 			<GridSeries series={series} />

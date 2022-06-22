@@ -20,7 +20,6 @@ const StepTwo = ({
 }) => {
 	return (
 		<Paper
-			elevation={10}
 			data-color-mode="light"
 			style={{
 				display: "flex",

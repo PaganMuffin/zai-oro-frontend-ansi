@@ -3,7 +3,6 @@ import { Paper, Box, Typography, Button } from "@mui/material";
 const SubEntry = ({ data, width = "100%" }) => {
 	return (
 		<Paper
-			elevation={10}
 			style={{
 				display: "flex",
 				width: width,

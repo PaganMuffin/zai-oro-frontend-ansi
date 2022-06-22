@@ -7,6 +7,7 @@ import {
 	Typography,
 } from "@mui/material";
 import React from "react";
+import { Link } from "react-router-dom";
 
 const GridSeries = ({ series }) => {
 	return (
@@ -20,8 +21,10 @@ const GridSeries = ({ series }) => {
 			}}>
 			{series.map((x) => {
 				return (
-					<Card key={x.id} elevation={0}>
-						<CardActionArea>
+					<Link
+						to={`/series/${x.id}?author=1`}
+						style={{ textDecoration: "none" }}>
+						<Card key={x.id} elevation={0}>
 							<CardMedia
 								style={{
 									width: 120,
@@ -44,8 +47,8 @@ const GridSeries = ({ series }) => {
 									{x.title.userPreferred}
 								</Typography>
 							</Tooltip>
-						</CardActionArea>
-					</Card>
+						</Card>
+					</Link>
 				);
 			})}
 		</Box>
