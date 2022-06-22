@@ -17,6 +17,7 @@ import { Route, Routes } from "react-router-dom";
 import SubView from "../sub-view";
 import AddSub from "../add-page";
 import User from "../user";
+import SeriesView from "../series-view";
 
 const demoSub = {
 	title: "SPY×FAMILY",
@@ -95,12 +96,13 @@ const MainPage = () => {
 					<div>ADD</div>
 				</Box>
 			</Drawer>
-			<Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+			<Box component="main" sx={{ flexGrow: 1, paddingTop: 3 }}>
 				<Toolbar />
 				<Routes>
 					<Route path="/view/:id" element={<SubView />} />
-					<Route path="/add" element={<AddSub />} />
 					<Route path="/user/:id/*" element={<User />} />
+					<Route path="/series/:id/*" element={<SeriesView />} />
+					<Route path="/add" element={<AddSub />} />
 					<Route path="*" element={<SearchView />} />
 				</Routes>
 			</Box>
