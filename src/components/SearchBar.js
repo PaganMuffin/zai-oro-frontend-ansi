@@ -1,5 +1,6 @@
 import { Search } from "@mui/icons-material";
 import { InputBase } from "@mui/material";
+import React from "react";
 
 const SearchBar = ({ value, setFunction, width = "100%" }) => {
 	return (
