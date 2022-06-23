@@ -66,10 +66,15 @@ const Register = () => {
 					width: "400px",
 					alignItems: "center",
 					padding: 50,
+					background: `rgb(${process.env.REACT_APP_FOREGROUND})`,
 				}}>
 				<Typography
 					variant="h4"
-					style={{ paddingTop: 50, paddingBottom: 50, color: "#4A5EA4" }}>
+					style={{
+						paddingTop: 50,
+						paddingBottom: 50,
+						color: `rgb(${process.env.REACT_APP_TEXT_LIGHTER})`,
+					}}>
 					Zarejestruj się
 				</Typography>
 				<CustomInputWithLabel
@@ -77,24 +82,32 @@ const Register = () => {
 					setFunction={setEmail}
 					label={"Adres e-mail"}
 					type={"e-mail"}
+					background={`rgb(${process.env.REACT_APP_BACKGROUND})`}
+					color={`rgb(${process.env.REACT_APP_TEXT})`}
 				/>
 				<CustomInputWithLabel
 					value={username}
 					setFunction={setUsername}
 					label={"Nazwa użytkownika"}
 					type={"text"}
+					background={`rgb(${process.env.REACT_APP_BACKGROUND})`}
+					color={`rgb(${process.env.REACT_APP_TEXT})`}
 				/>
 				<CustomInputWithLabel
 					value={password}
 					setFunction={setPassword}
 					label={"Hasło"}
 					type={"password"}
+					background={`rgb(${process.env.REACT_APP_BACKGROUND})`}
+					color={`rgb(${process.env.REACT_APP_TEXT})`}
 				/>
 				<CustomInputWithLabel
 					value={passwordConfirm}
 					setFunction={setPasswordConfirm}
 					label={"Powtórz hasło"}
 					type={"password"}
+					background={`rgb(${process.env.REACT_APP_BACKGROUND})`}
+					color={`rgb(${process.env.REACT_APP_TEXT})`}
 				/>
 				<Button
 					variant="contained"

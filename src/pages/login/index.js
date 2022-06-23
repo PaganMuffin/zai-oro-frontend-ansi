@@ -32,8 +32,15 @@ const Login = () => {
 					width: "400px",
 					alignItems: "center",
 					padding: 50,
+					backgroundColor: `rgb(${process.env.REACT_APP_FOREGROUND})`,
 				}}>
-				<Typography variant="h4" style={{ paddingTop: 50, paddingBottom: 50 }}>
+				<Typography
+					variant="h4"
+					style={{
+						paddingTop: 50,
+						paddingBottom: 50,
+						color: `rgb(${process.env.REACT_APP_TEXT_LIGHTER})`,
+					}}>
 					Zaloguj się
 				</Typography>
 				<CustomInputWithLabel
@@ -41,12 +48,16 @@ const Login = () => {
 					setFunction={setEmail}
 					label={"Adres e-mail"}
 					type={"email"}
+					background={`rgb(${process.env.REACT_APP_BACKGROUND})`}
+					color={`rgb(${process.env.REACT_APP_TEXT})`}
 				/>
 				<CustomInputWithLabel
 					value={password}
 					setFunction={setPassword}
 					label={"Hasło"}
 					type={"password"}
+					background={`rgb(${process.env.REACT_APP_BACKGROUND})`}
+					color={`rgb(${process.env.REACT_APP_TEXT})`}
 				/>
 				<Button
 					variant="contained"

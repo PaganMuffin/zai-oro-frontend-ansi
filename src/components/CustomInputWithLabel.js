@@ -9,6 +9,8 @@ const CustomInputWithLabel = ({
 	width = "100%",
 	accept = null,
 	readOnly = false,
+	color = "black",
+	background = "white",
 }) => {
 	return (
 		<div
@@ -16,24 +18,28 @@ const CustomInputWithLabel = ({
 				display: "flex",
 				flexDirection: "column",
 				gap: 10,
+				width: width,
 			}}>
-			<Typography style={{ color: "#4A5EA4" }} variant="h6">
+			<Typography style={{ color: color }} variant="h6">
 				{label}
 			</Typography>
-			<Paper>
+			<Paper
+				style={{
+					background: background,
+				}}>
 				<InputBase
 					readOnly={readOnly}
 					multiline={multiline}
 					style={{
-						background: "white",
 						paddingLeft: "0.5rem",
 						paddingRight: "0.5rem",
 						paddingTop: "0.25rem",
 						paddingBottom: "0.25rem",
 						borderRadius: "5px",
+						color: color,
 					}}
 					sx={{
-						width: width,
+						width: "100%",
 					}}
 					label={label}
 					value={type == "file" ? value.name : value}
