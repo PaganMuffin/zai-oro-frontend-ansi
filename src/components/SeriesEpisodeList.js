@@ -17,10 +17,14 @@ const Row = ({ data, ep }) => {
 			style={{ alignItems: "center", alignContent: "center" }}>
 			<Typography className="episode"></Typography>
 			<Typography className="author">{data.author}</Typography>
-			<Button className="comments" variant="contained">
+			<Button
+				className="comments"
+				style={{ color: `rgb(${process.env.REACT_APP_TEXT})` }}>
 				Komentarze
 			</Button>
-			<Button className="download" variant="contained">
+			<Button
+				className="download"
+				style={{ color: `rgb(${process.env.REACT_APP_TEXT})` }}>
 				Pobierz
 			</Button>
 			<Typography className="added" style={{ textAlign: "end" }}>
@@ -49,10 +53,14 @@ const SeriesEpisodeList = ({ data }) => {
 							}}>
 							<Typography className="episode">Odcinek {x.episode}</Typography>
 							<Typography className="author">{x.subList[0].author}</Typography>
-							<Button className="comments" variant="contained">
+							<Button
+								className="comments"
+								style={{ color: `rgb(${process.env.REACT_APP_TEXT})` }}>
 								Komentarze
 							</Button>
-							<Button className="download" variant="contained">
+							<Button
+								className="download"
+								style={{ color: `rgb(${process.env.REACT_APP_TEXT})` }}>
 								Pobierz
 							</Button>
 							<Typography className="added" style={{ textAlign: "end" }}>
