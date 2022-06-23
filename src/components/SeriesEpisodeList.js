@@ -12,13 +12,19 @@ import "./SeriesEpisodeList.css";
 
 const Row = ({ data, ep }) => {
 	return (
-		<div className="containerSeriesList" style={{ alignItems: "center" }}>
+		<div
+			className="containerSeriesList"
+			style={{ alignItems: "center", alignContent: "center" }}>
 			<Typography className="episode"></Typography>
 			<Typography className="author">{data.author}</Typography>
-			<Button className="comments" variant="contained">
+			<Button
+				className="comments"
+				style={{ color: `rgb(${process.env.REACT_APP_TEXT})` }}>
 				Komentarze
 			</Button>
-			<Button className="download" variant="contained">
+			<Button
+				className="download"
+				style={{ color: `rgb(${process.env.REACT_APP_TEXT})` }}>
 				Pobierz
 			</Button>
 			<Typography className="added" style={{ textAlign: "end" }}>
@@ -35,18 +41,26 @@ const SeriesEpisodeList = ({ data }) => {
 				if (x.subList.length == 1) {
 					return (
 						<Paper
+							key={x.id}
 							className="containerSeriesList"
 							style={{
+								background: `rgb(${process.env.REACT_APP_FOREGROUND})`,
+								color: `rgb(${process.env.REACT_APP_TEXT})`,
 								alignItems: "center",
-								minHeigh: "64px",
+								alignContent: "center",
+								height: "48px",
 								padding: "10px 16px 10px 12px",
 							}}>
 							<Typography className="episode">Odcinek {x.episode}</Typography>
 							<Typography className="author">{x.subList[0].author}</Typography>
-							<Button className="comments" variant="contained">
+							<Button
+								className="comments"
+								style={{ color: `rgb(${process.env.REACT_APP_TEXT})` }}>
 								Komentarze
 							</Button>
-							<Button className="download" variant="contained">
+							<Button
+								className="download"
+								style={{ color: `rgb(${process.env.REACT_APP_TEXT})` }}>
 								Pobierz
 							</Button>
 							<Typography className="added" style={{ textAlign: "end" }}>
@@ -56,8 +70,18 @@ const SeriesEpisodeList = ({ data }) => {
 					);
 				} else {
 					return (
-						<Accordion defaultExpanded={true}>
-							<AccordionSummary expandIcon={<ExpandMoreIcon />}>
+						<Accordion
+							defaultExpanded={true}
+							style={{
+								background: `rgb(${process.env.REACT_APP_FOREGROUND})`,
+								color: `rgb(${process.env.REACT_APP_TEXT})`,
+							}}>
+							<AccordionSummary
+								expandIcon={
+									<ExpandMoreIcon
+										style={{ color: `rgb(${process.env.REACT_APP_TEXT})` }}
+									/>
+								}>
 								<div style={{ display: "flex", width: "100%" }}>
 									<Typography style={{ flexGrow: "1" }}>
 										Odcinek {x.episode}
@@ -74,7 +98,7 @@ const SeriesEpisodeList = ({ data }) => {
 									gap: "1rem",
 								}}>
 								{x.subList.map((y) => {
-									return <Row data={y} ep={x.episode} />;
+									return <Row key={y.id} data={y} ep={x.episode} />;
 								})}
 							</AccordionDetails>
 						</Accordion>

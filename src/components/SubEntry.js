@@ -8,6 +8,8 @@ const SubEntry = ({ data, width = "100%" }) => {
 				width: width,
 				padding: 10,
 				gap: 10,
+				background: `rgb(${process.env.REACT_APP_FOREGROUND})`,
+				color: `rgb(${process.env.REACT_APP_TEXT})`,
 			}}>
 			<div
 				style={{
@@ -49,7 +51,9 @@ const SubEntry = ({ data, width = "100%" }) => {
 						alignSelf: "end",
 						marginBottom: "0 auto",
 					}}>
-					<Button variant="contained" size="large">
+					<Button
+						size="large"
+						style={{ color: `rgb(${process.env.REACT_APP_TEXT})` }}>
 						Pobierz
 					</Button>
 				</a>

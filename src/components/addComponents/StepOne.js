@@ -15,9 +15,16 @@ const StepOne = ({ value, setFunction }) => {
 				flexDirection: "column",
 				gap: "1rem",
 				padding: 10,
+				backgroundColor: `rgb(${process.env.REACT_APP_FOREGROUND})`,
+				color: `rgb(${process.env.REACT_APP_TEXT})`,
 			}}>
 			<Typography variant="h4">Wyszukaj anime</Typography>
-			<SearchBar value={search} setFunction={setSearch} />
+			<SearchBar
+				background={`rgb(${process.env.REACT_APP_BACKGROUND})`}
+				color={`rgb(${process.env.REACT_APP_TEXT})`}
+				value={search}
+				setFunction={setSearch}
+			/>
 			<Box style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
 				{demoData.slice(0, 1).map((data, idx) => {
 					return (

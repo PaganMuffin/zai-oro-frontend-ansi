@@ -20,13 +20,13 @@ const StepTwo = ({
 }) => {
 	return (
 		<Paper
-			data-color-mode="light"
 			style={{
 				display: "flex",
 				flexDirection: "column",
 				gap: "1rem",
 				padding: 10,
-				transition: "width 2s",
+				backgroundColor: `rgb(${process.env.REACT_APP_FOREGROUND})`,
+				color: `rgb(${process.env.REACT_APP_TEXT})`,
 			}}>
 			<Typography variant="h4">Uzupełnij dane</Typography>
 			<AniListSeriesCard data={data} showDescription={false} />
@@ -35,6 +35,8 @@ const StepTwo = ({
 				setFunction={setEp}
 				label={"Odcinek"}
 				type={"number"}
+				background={`rgb(${process.env.REACT_APP_BACKGROUND})`}
+				color={`rgb(${process.env.REACT_APP_TEXT})`}
 			/>
 
 			<CustomInputWithLabel
@@ -42,6 +44,8 @@ const StepTwo = ({
 				setFunction={setAuthor}
 				label={"Autor"}
 				type={"text"}
+				background={`rgb(${process.env.REACT_APP_BACKGROUND})`}
+				color={`rgb(${process.env.REACT_APP_TEXT})`}
 			/>
 			<Box
 				style={{
@@ -49,13 +53,23 @@ const StepTwo = ({
 					flexDirection: "column",
 					gap: 10,
 				}}>
-				<Typography style={{ color: "#4A5EA4" }} variant="h6">
+				<Typography
+					style={{ color: `rgb(${process.env.REACT_APP_TEXT})` }}
+					variant="h6">
 					Opis
 				</Typography>
 				<MDEditor
 					value={desc}
 					onChange={setDesc}
+					style={{
+						backgroundColor: `rgb(${process.env.REACT_APP_BACKGROUND})`,
+						color: `rgb(${process.env.REACT_APP_TEXT})`,
+					}}
 					previewOptions={{
+						style: {
+							backgroundColor: `rgb(${process.env.REACT_APP_BACKGROUND})`,
+							color: `rgb(${process.env.REACT_APP_TEXT})`,
+						},
 						rehypePlugins: [[rehypeSanitize]],
 					}}
 				/>
@@ -68,7 +82,7 @@ const StepTwo = ({
 					placeItems: "center",
 					paddingRight: 10,
 				}}>
-				<Button variant="contained" component="label">
+				<Button component="label" variant="contained">
 					<Typography variant="h6">Wybierz plik</Typography>
 					<input
 						type="file"
@@ -95,6 +109,9 @@ const StepTwo = ({
 					{file ? `${formatBytes(file.size)}` : ""}
 				</Typography>
 				<IconButton
+					style={{
+						color: `rgb(${process.env.REACT_APP_TEXT})`,
+					}}
 					onClick={() => {
 						setFile(null);
 					}}>

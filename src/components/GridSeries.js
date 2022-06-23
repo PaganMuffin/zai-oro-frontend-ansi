@@ -24,7 +24,13 @@ const GridSeries = ({ series }) => {
 					<Link
 						to={`/series/${x.id}?author=1`}
 						style={{ textDecoration: "none" }}>
-						<Card key={x.id} elevation={0}>
+						<Card
+							key={x.id}
+							elevation={0}
+							sx={{
+								backgroundColor: "rgba(0,0,0,0)",
+								color: `rgb(${process.env.REACT_APP_TEXT})`,
+							}}>
 							<CardMedia
 								style={{
 									width: 120,
