@@ -69,7 +69,8 @@ const MainPage = (props) => {
 	useEffect(() => {
 		const handleScroll = () => {
 			const show = window.scrollY;
-			setAppBarTransparent(show / 150 > 1 ? 1 : show / 150);
+
+			setAppBarTransparent(show / 150 > 1 ? 1 : Math.max(0.2, show / 150));
 		};
 		document.addEventListener("scroll", handleScroll);
 		return () => {
