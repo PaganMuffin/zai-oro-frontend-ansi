@@ -60,7 +60,14 @@ const User = () => {
 				gap: 20,
 			}}>
 			<Toolbar />
-			<Paper style={{ display: "flex", gap: "2rem", padding: 10 }}>
+			<Paper
+				style={{
+					display: "flex",
+					gap: "2rem",
+					padding: 10,
+					background: `rgb(${process.env.REACT_APP_FOREGROUND})`,
+					color: `rgb(${process.env.REACT_APP_TEXT})`,
+				}}>
 				<Avatar sx={{ width: 96, height: 96 }} />
 				<Box style={{ display: "flex", flexDirection: "column" }}>
 					<Typography variant="h4" style={{ flexGrow: "1" }}>
@@ -69,7 +76,12 @@ const User = () => {
 					<Typography>Napisy: {data.subCount}</Typography>
 				</Box>
 			</Paper>
-			<SearchBar value={search} setFunction={setSearch} />
+			<SearchBar
+				background={`rgb(${process.env.REACT_APP_FOREGROUND})`}
+				color={`rgb(${process.env.REACT_APP_TEXT})`}
+				value={search}
+				setFunction={setSearch}
+			/>
 			<GridSeries series={series} />
 		</div>
 	);
