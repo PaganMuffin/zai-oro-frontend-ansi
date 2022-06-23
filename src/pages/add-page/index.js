@@ -70,6 +70,9 @@ const AddSub = () => {
 				}}>
 				<Button
 					variant="contained"
+					style={{
+						color: step === 1 ? `rgba(255,255,255,0.1)` : null,
+					}}
 					disabled={step === 1}
 					onClick={() => setStep(step - 1)}>
 					<Typography variant="h6">Cofnij</Typography>
@@ -81,6 +84,14 @@ const AddSub = () => {
 				) : (
 					<Button
 						variant="contained"
+						style={{
+							color:
+								(!file && step === 2) ||
+								(step === 1 && selectedShow === -1) ||
+								(step === 2 && author.trim().length == 0)
+									? `rgba(255,255,255,0.1)`
+									: null,
+						}}
 						disabled={
 							(!file && step === 2) ||
 							(step === 1 && selectedShow === -1) ||

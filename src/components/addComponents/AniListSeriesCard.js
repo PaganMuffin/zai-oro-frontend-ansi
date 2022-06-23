@@ -14,8 +14,14 @@ const AniListSeriesCard = ({
 			}}
 			elevation={5}
 			style={{
-				backgroundColor: data.id === value?.id ? theme.palette.info.dark : null,
-				color: data.id === value?.id ? "white" : "black",
+				backgroundColor:
+					data.id === value?.id
+						? theme.palette.info.dark
+						: `rgb(${process.env.REACT_APP_FOREGROUND})`,
+				color:
+					data.id === value?.id
+						? `rgb(${process.env.REACT_APP_TEXT_LIGHTER})`
+						: `rgb(${process.env.REACT_APP_TEXT})`,
 				display: "flex",
 				gap: "1rem",
 				padding: 5,
@@ -31,11 +37,14 @@ const AniListSeriesCard = ({
 				}}
 			/>
 			<Box style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
-				<Typography variant="h5" fontWeight={"bold"}>
+				<Typography
+					variant="h5"
+					fontWeight={"bold"}
+					style={{ flexGrow: showDescription ? null : "1" }}>
 					{data.title.userPreferred}
 				</Typography>
 				{showDescription == true ? (
-					<Typography fontWeight={"400"} variant="h6">
+					<Typography fontWeight={"400"} variant="h6" style={{ flexGrow: "1" }}>
 						<div dangerouslySetInnerHTML={{ __html: data.description }} />
 					</Typography>
 				) : null}
