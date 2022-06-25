@@ -19,6 +19,7 @@ import SubView from "../sub-view";
 import AddSub from "../add-page";
 import User from "../user";
 import SeriesView from "../series-view";
+import SearchView from "../search-page";
 
 const demoSub = {
 	title: "SPY×FAMILY",
@@ -29,36 +30,6 @@ const demoSub = {
 	cover:
 		"https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx140960-Yl5M3AiLZAMq.png",
 	author: "PaganMuffin",
-};
-
-const SearchView = () => {
-	const [search, setSearch] = useState("");
-	return (
-		<Box
-			style={{
-				display: "flex",
-				flexDirection: "column",
-				alignItems: "center",
-				gap: 25,
-			}}>
-			<Toolbar />
-			<SearchBar
-				background={`rgb(${process.env.REACT_APP_FOREGROUND})`}
-				color={`rgb(${process.env.REACT_APP_TEXT})`}
-				value={search}
-				setFunction={setSearch}
-				width={"50%"}
-			/>
-			<SubEntry width="50%" data={demoSub} />
-			<SubEntry width="50%" data={demoSub} />
-			<SubEntry width="50%" data={demoSub} />
-			<SubEntry width="50%" data={demoSub} />
-			<SubEntry width="50%" data={demoSub} />
-			<SubEntry width="50%" data={demoSub} />
-			<SubEntry width="50%" data={demoSub} />
-			<SubEntry width="50%" data={demoSub} />
-		</Box>
-	);
 };
 
 const MainPage = (props) => {
