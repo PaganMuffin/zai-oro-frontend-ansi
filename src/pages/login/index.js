@@ -1,17 +1,46 @@
 import { Button, Paper, Typography } from "@mui/material";
+import { useSnackbar } from "notistack";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import CustomInputWithLabel from "../../components/CustomInputWithLabel";
 
 const Login = () => {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
+	const { enqueueSnackbar } = useSnackbar();
+	const navigate = useNavigate();
 
 	useEffect(() => {
 		console.log("Login page rendered");
 	}, []);
 
-	const handleSubmit = (e) => {
-		console.log(email, password);
+	const handleSubmit = async (e) => {
+		const api_url = new URL(process.env.REACT_APP_API_URL);
+		api_url.pathname = `/login`;
+		const f = await fetch(api_url.toString(), {
+			method: "POST",
+			headers: {
+				"Content-type": "application/json",
+			},
+			body: JSON.stringify({
+				password,
+				email,
+			}),
+		});
+
+		const f_data = await f.json();
+		if (!f.ok) {
+			enqueueSnackbar(f_data.error ?? f_data.message, {
+				variant: "error",
+				preventDuplicate: true,
+			});
+		} else {
+			enqueueSnackbar(f_data.message, {
+				variant: "success",
+				preventDuplicate: true,
+			});
+			navigate(`/user/${f_data.user}`);
+		}
 	};
 	return (
 		<div
