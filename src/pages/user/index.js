@@ -26,29 +26,40 @@ const demoUser = {
 const demoLatestSubs = [{}];
 
 const User = () => {
-	const [data, setData] = useState(null);
-	const [series, setSeries] = useState([]);
+	const [userData, setUserData] = useState(null);
+	const [seriesData, setSeriesData] = useState([]);
+	const [fullSeriesData, setFullSeriesData] = useState([]);
+	const [subCount, setSubCount] = useState(0);
 	const [search, setSearch] = useState("");
 	const debounceSearchTerm = useDebounce(search, 500);
 
 	const params = useParams();
 
 	useEffect(() => {
-		setData(demoUser);
-		setSeries(demoData);
+		(async () => {
+			const api_url = new URL(process.env.REACT_APP_API_URL);
+			api_url.pathname = `/user/${params.id}`;
+			const f = await fetch(api_url.toString());
+			const f_data = await f.json();
+			console.log(f_data);
+			setSubCount(f_data.count);
+			setSeriesData(f_data.result);
+			setFullSeriesData(f_data.result);
+			setUserData(f_data.user);
+		})();
 	}, []);
 
 	useEffect(() => {
-		if (data != null) {
+		if (seriesData != null) {
 			if (debounceSearchTerm) {
 				const reg = new RegExp(debounceSearchTerm, "gi");
-				setSeries(series.filter((x) => x.title.userPreferred.match(reg)));
+				setSeriesData(seriesData.filter((x) => x.title.romaji.match(reg)));
 			} else {
-				setSeries(demoData);
+				setSeriesData(fullSeriesData);
 			}
 		}
 	}, [debounceSearchTerm]);
-	if (data == null) return <div>LOADING</div>;
+	if (userData == null) return <div>LOADING</div>;
 
 	return (
 		<div
@@ -68,12 +79,12 @@ const User = () => {
 					background: `rgb(${process.env.REACT_APP_FOREGROUND})`,
 					color: `rgb(${process.env.REACT_APP_TEXT})`,
 				}}>
-				<Avatar sx={{ width: 96, height: 96 }} />
+				<Avatar src={userData.avatar} sx={{ width: 96, height: 96 }} />
 				<Box style={{ display: "flex", flexDirection: "column" }}>
 					<Typography variant="h4" style={{ flexGrow: "1" }}>
-						{data.username}
+						{userData.username}
 					</Typography>
-					<Typography>Napisy: {data.subCount}</Typography>
+					<Typography>Napisy: {subCount}</Typography>
 				</Box>
 			</Paper>
 			<SearchBar
@@ -82,7 +93,7 @@ const User = () => {
 				value={search}
 				setFunction={setSearch}
 			/>
-			<GridSeries series={series} />
+			<GridSeries series={seriesData} />
 		</div>
 	);
 };
