@@ -13,7 +13,7 @@ const SubEntry = ({ data, width = "100%" }) => {
 			}}>
 			<div
 				style={{
-					backgroundImage: `url(${data.cover})`,
+					backgroundImage: `url(${data.series.coverImage.medium})`,
 					backgroundSize: "cover",
 					height: "250px",
 					aspectRatio: 8 / 11,
@@ -28,32 +28,28 @@ const SubEntry = ({ data, width = "100%" }) => {
 					width: "100%",
 				}}>
 				<Typography variant="h5">
-					{data.title} #{data.ep}
+					{data.series.title.romaji} #{data.episode}
 				</Typography>
 				<Box
 					style={{
 						display: "flex",
 						flexDirection: "row",
-						justifyContent: "space-evenly",
+						//justifyContent: "space-evenly",
 						gap: 10,
 						flex: 1,
 					}}>
-					<Typography variant="h6">Rozmiar pliku: {data.size}Kb</Typography>
-					<Typography variant="h6">Ilość pobrań: {data.downloads}</Typography>
 					<Typography variant="h6">Autor: {data.author}</Typography>
 				</Box>
 				<a
-					href={data.file}
-					download="100MB.bin"
+					href={`${process.env.REACT_APP_API_URL}/file/${data.filename}`}
+					download={data.filename}
 					target="_blank"
 					style={{
 						textDecoration: "none",
 						alignSelf: "end",
 						marginBottom: "0 auto",
 					}}>
-					<Button
-						size="large"
-						style={{ color: `rgb(${process.env.REACT_APP_TEXT})` }}>
+					<Button variant="contained" size="large">
 						Pobierz
 					</Button>
 				</a>
