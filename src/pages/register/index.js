@@ -1,3 +1,4 @@
+import { CompareSharp } from "@mui/icons-material";
 import { Button, Paper, Typography } from "@mui/material";
 import { useSnackbar } from "notistack";
 import { useEffect, useState } from "react";
@@ -16,36 +17,64 @@ const Register = () => {
 	}, []);
 
 	const checkData = () => {
+		let error = false;
 		if (!validateEmail(email)) {
 			enqueueSnackbar("Email is not valid", {
 				variant: "error",
 				preventDuplicate: true,
 			});
+			error = true;
 		}
 		if (!checkPassword(password)) {
 			enqueueSnackbar("Password is not valid", {
 				variant: "error",
 				preventDuplicate: true,
 			});
+			error = true;
 		}
 		if (username === "") {
 			enqueueSnackbar("Username is not valid", {
 				variant: "error",
 				preventDuplicate: true,
 			});
+			error = true;
 		}
+
+		return !error;
 	};
 
-	const checkPasswords = () => {
-		if (password === passwordConfirm && password.length > 0) {
-			return true;
-		}
-		return false;
-	};
+	const handleSubmit = async (e) => {
+		if (checkData()) {
+			console.log(email, username, password);
+			const api_url = new URL(process.env.REACT_APP_API_URL);
+			api_url.pathname = `/register`;
+			const f = await fetch(api_url.toString(), {
+				method: "POST",
+				headers: {
+					"Content-type": "application/json",
+				},
+				body: JSON.stringify({
+					username,
+					password,
+					email,
+				}),
+			});
 
-	const handleSubmit = (e) => {
-		checkData();
-		console.log(email, username, password);
+			const f_data = await f.json();
+			if (!f.ok) {
+				enqueueSnackbar(f_data.error ?? f_data.message, {
+					variant: "error",
+					preventDuplicate: true,
+				});
+			} else {
+				enqueueSnackbar(f_data.message, {
+					variant: "success",
+					preventDuplicate: true,
+				});
+			}
+		} else {
+			//NOT OK
+		}
 	};
 	return (
 		<div
@@ -113,7 +142,7 @@ const Register = () => {
 					variant="contained"
 					sx={{ marginTop: 5 }}
 					onClick={handleSubmit}
-					disabled={!checkPasswords()}>
+					disabled={!(passwordConfirm === password && password.length >= 8)}>
 					<Typography variant="subtitle1">Zarejestruj się</Typography>
 				</Button>
 			</Paper>

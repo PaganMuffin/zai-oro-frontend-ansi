@@ -7,9 +7,10 @@ import {
 	Typography,
 } from "@mui/material";
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 const GridSeries = ({ series }) => {
+	const params = useParams();
 	return (
 		<Box
 			style={{
@@ -20,9 +21,15 @@ const GridSeries = ({ series }) => {
 				justifyItems: "center",
 			}}>
 			{series.map((x) => {
+				const query = new URLSearchParams();
+				if (params.id) {
+					query.append("author", params.id);
+				}
+
 				return (
 					<Link
-						to={`/series/${x.id}?author=1`}
+						key={x.id}
+						to={`/series/${x.id}?${query.toString()}`}
 						style={{ textDecoration: "none" }}>
 						<Card
 							key={x.id}
@@ -37,10 +44,10 @@ const GridSeries = ({ series }) => {
 									height: 170,
 									borderRadius: "5px",
 								}}
-								image={x.coverImage.large}
-								title={x.title.userPreferred}
+								image={x.coverImage.medium}
+								title={x.title.romaji}
 							/>
-							<Tooltip title={x.title.userPreferred} placement="top">
+							<Tooltip title={x.title.romaji} placement="top">
 								<Typography
 									fontWeight={500}
 									style={{
@@ -50,7 +57,7 @@ const GridSeries = ({ series }) => {
 										WebkitLineClamp: "2",
 										WebkitBoxOrient: "vertical",
 									}}>
-									{x.title.userPreferred}
+									{x.title.romaji}
 								</Typography>
 							</Tooltip>
 						</Card>

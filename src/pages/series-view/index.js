@@ -10,6 +10,8 @@ import {
 	Toolbar,
 	Typography,
 } from "@mui/material";
+import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import SeriesEpisodeList from "../../components/SeriesEpisodeList";
 import CollapsibleTable from "../../components/SeriesEpisodeList";
 import { getRandomIntInclusive } from "../../utills";
@@ -98,6 +100,28 @@ const demoSubs = [
 ];
 
 const SeriesView = () => {
+	const [seriesData, setSeriesData] = useState(null);
+	const [entriesData, setEntriesData] = useState(null);
+
+	const params = useParams();
+	const navigate = useNavigate();
+	useEffect(() => {
+		(async () => {
+			const api_url = new URL(process.env.REACT_APP_API_URL);
+			api_url.pathname = `/series/${params.id}`;
+			const f = await fetch(api_url.toString());
+			if (f.status == 404) {
+				navigate("/404");
+			}
+
+			const data = await f.json();
+			setEntriesData(data.series.entries);
+			delete data.series.entries;
+			setSeriesData(data.series);
+		})();
+	}, []);
+
+	if (seriesData == null || entriesData == null) return <div>LOADING</div>;
 	return (
 		<div style={{ position: "relative", padding: "0 2rem" }}>
 			{/* BANNER */}
@@ -115,7 +139,7 @@ const SeriesView = () => {
 				}}>
 				<div
 					style={{
-						backgroundImage: `url(${demoData.coverImage.large})`,
+						backgroundImage: `url(${seriesData.coverImage.medium})`,
 						position: "relative",
 						width: "100%",
 						height: "25rem",
@@ -141,7 +165,7 @@ const SeriesView = () => {
 				style={{ paddingTop: "2rem", margin: "auto", width: "70%" }}>
 				<img
 					className="cover"
-					src={demoData.coverImage.large}
+					src={seriesData.coverImage.medium}
 					style={{
 						aspectRatio: 8 / 11,
 						borderRadius: "10px",
@@ -154,7 +178,7 @@ const SeriesView = () => {
 					variant="h2"
 					className="title"
 					style={{ color: "white" }}>
-					{demoData.title.userPreferred}
+					{seriesData.title.romaji}
 				</Typography>
 				<div
 					className="info"
@@ -165,21 +189,21 @@ const SeriesView = () => {
 								color: `rgb(${process.env.REACT_APP_TEXT})`,
 								background: `rgb(${process.env.REACT_APP_FOREGROUND})`,
 							}}
-							label={`${demoData.season} ${demoData.seasonYear}`}
+							label={`${seriesData.season} ${seriesData.seasonYear}`}
 						/>
 						<Chip
 							style={{
 								color: `rgb(${process.env.REACT_APP_TEXT})`,
 								background: `rgb(${process.env.REACT_APP_FOREGROUND})`,
 							}}
-							label={`${demoData.format}`}
+							label={`${seriesData.format}`}
 						/>
 						<Chip
 							style={{
 								color: `rgb(${process.env.REACT_APP_TEXT})`,
 								background: `rgb(${process.env.REACT_APP_FOREGROUND})`,
 							}}
-							label={`Odcinki ${demoData.episodes}`}
+							label={`Odcinki ${seriesData.episodes}`}
 						/>
 					</div>
 					<div style={{ display: "flex", gap: 20 }}>
@@ -189,7 +213,7 @@ const SeriesView = () => {
 								background: `rgb(${process.env.REACT_APP_FOREGROUND})`,
 							}}
 							variant="contained">
-							MyAnimeList
+							MyAnimeList {seriesData.idMal}
 						</Button>
 						<Button
 							style={{
@@ -197,7 +221,7 @@ const SeriesView = () => {
 								background: `rgb(${process.env.REACT_APP_FOREGROUND})`,
 							}}
 							variant="contained">
-							AniList
+							AniList {seriesData.alId}
 						</Button>
 					</div>
 				</div>
@@ -206,13 +230,13 @@ const SeriesView = () => {
 					variant="h6"
 					className="desc"
 					style={{ color: `rgb(${process.env.REACT_APP_TEXT})` }}>
-					{demoData.description}
+					{seriesData.description}
 				</Typography>
 
 				<div
 					className="ep-list"
 					style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
-					<SeriesEpisodeList data={demoSubs} />
+					<SeriesEpisodeList data={entriesData} />
 				</div>
 			</div>
 		</div>

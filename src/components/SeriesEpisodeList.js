@@ -9,6 +9,7 @@ import {
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import "./SeriesEpisodeList.css";
+import { useEffect, useState } from "react";
 
 const Row = ({ data, ep }) => {
 	return (
@@ -28,16 +29,32 @@ const Row = ({ data, ep }) => {
 				Pobierz
 			</Button>
 			<Typography className="added" style={{ textAlign: "end" }}>
-				{new Date(data.addedAt).toLocaleDateString()}
+				{new Date(data.createdAt * 1000).toLocaleDateString()}
 			</Typography>
 		</div>
 	);
 };
 
 const SeriesEpisodeList = ({ data }) => {
+	const [subData, setSubData] = useState([]);
+
+	useEffect(() => {
+		const y = data.map((x) => {
+			return {
+				episode: x.episode,
+				subList: [],
+			};
+		});
+		y.forEach((k) => {
+			k.subList = data.filter((x) => (x.episode = k.episode));
+		});
+		console.log(y);
+		setSubData(y);
+	}, []);
+
 	return (
 		<>
-			{data.map((x) => {
+			{subData.map((x) => {
 				if (x.subList.length == 1) {
 					return (
 						<Paper
@@ -64,7 +81,7 @@ const SeriesEpisodeList = ({ data }) => {
 								Pobierz
 							</Button>
 							<Typography className="added" style={{ textAlign: "end" }}>
-								{new Date(x.subList[0].addedAt).toLocaleDateString()}
+								{new Date(x.subList[0].createdAt * 1000).toLocaleDateString()}
 							</Typography>
 						</Paper>
 					);
