@@ -6,9 +6,7 @@
  */
 
 import { Button, Slide, Toolbar, Typography } from "@mui/material";
-import { useSnackbar } from "notistack";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import StepOne from "../../components/addComponents/StepOne";
 import StepThree from "../../components/addComponents/StepThree";
 import StepTwo from "../../components/addComponents/StepTwo";
@@ -20,39 +18,16 @@ const AddSub = () => {
 	const [desc, setDesc] = useState("");
 	const [author, setAuthor] = useState("");
 	const [file, setFile] = useState(undefined);
-	const { enqueueSnackbar } = useSnackbar();
 
-	const navigate = useNavigate();
-
-	const handleSubmit = async () => {
+	const handleSubmit = () => {
 		const fd = new FormData();
-		fd.append("showId", selectedShow.id);
-		fd.append("episode", ep);
+		fd.append("show_id", selectedShow.id);
+		fd.append("ep", ep);
 		fd.append("desc", desc);
 		fd.append("author", author);
 		fd.append("file", file);
 
-		const api_url = new URL(process.env.REACT_APP_API_URL);
-		api_url.pathname = `/add`;
-		const f = await fetch(api_url.toString(), {
-			method: "POST",
-			body: fd,
-			credentials: "include",
-		});
-
-		const f_data = await f.json();
-		if (!f.ok) {
-			enqueueSnackbar(f_data.error ?? f_data.message, {
-				variant: "error",
-				preventDuplicate: true,
-			});
-		} else {
-			enqueueSnackbar(f_data.message, {
-				variant: "success",
-				preventDuplicate: true,
-			});
-			//navigate(`/view/${f_data.id}`);
-		}
+		fetch("http://localhost", { method: "POST", body: fd });
 	};
 
 	return (
