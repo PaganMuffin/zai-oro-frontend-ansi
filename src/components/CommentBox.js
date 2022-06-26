@@ -5,9 +5,11 @@ const CommentBox = ({ comment, width = "100%" }) => {
 		<Paper
 			style={{
 				width: width,
+				background: `rgb(${process.env.REACT_APP_FOREGROUND})`,
+				color: `rgb(${process.env.REACT_APP_TEXT})`,
 			}}>
 			<Typography style={{ padding: 10 }} variant="h6">
-				{comment.author}
+				{comment.user.username}
 			</Typography>
 			<Divider />
 			<Typography style={{ padding: 10 }} variant="subtitle1">
@@ -15,7 +17,7 @@ const CommentBox = ({ comment, width = "100%" }) => {
 			</Typography>
 			<Divider />
 			<Typography style={{ padding: 10, textAlign: "end" }}>
-				{new Date(comment.created_at).toLocaleString()}
+				{new Date(comment.createdAt * 1000).toLocaleString()}
 			</Typography>
 		</Paper>
 	);
