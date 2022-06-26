@@ -51,7 +51,7 @@ const AddSub = () => {
 				variant: "success",
 				preventDuplicate: true,
 			});
-			//navigate(`/view/${f_data.id}`);
+			navigate(`/view/${f_data.id}`);
 		}
 	};
 
