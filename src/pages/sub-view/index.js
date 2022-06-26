@@ -1,25 +1,34 @@
-import { Box, Divider, Paper, Typography } from "@mui/material";
+import { Box, Divider, Paper, Toolbar, Typography } from "@mui/material";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import CommentBox from "../../components/CommentBox";
 import SubEntry from "../../components/SubEntry";
 
-const demoSub = {
-	title: "SPY×FAMILY",
-	ep: 1,
-	size: 213,
-	downloads: 30,
-	file: "https://speed.hetzner.de/100MB.bin",
-	cover:
-		"https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx140960-Yl5M3AiLZAMq.png",
-	author: "PaganMuffin",
-};
-
-const demoComment = {
-	author: "PaganMuffin",
-	created_at: new Date().getTime() - 6 * 60 * 60 * 1000,
-	content: "asdasdasdasdasdasdasdasdasdasdasdasdasdasdasd",
-};
-
 const SubView = () => {
+	const [comments, setComments] = useState([]);
+	const [seriesData, setSeriesData] = useState(null);
+
+	const params = useParams();
+
+	useEffect(() => {
+		(async () => {
+			const api_url = new URL(process.env.REACT_APP_API_URL);
+			api_url.pathname = `/view/${params.id}`;
+			const f = await fetch(api_url.toString());
+			const f_data = await f.json();
+			setSeriesData(f_data);
+		})();
+
+		(async () => {
+			const api_url = new URL(process.env.REACT_APP_API_URL);
+			api_url.pathname = `/comments/${params.id}`;
+			const f = await fetch(api_url.toString());
+			const f_data = await f.json();
+			setComments(f_data);
+		})();
+	}, []);
+
+	if (seriesData == null) return <div>LOADING</div>;
 	return (
 		<div
 			style={{
@@ -28,7 +37,8 @@ const SubView = () => {
 				alignItems: "center",
 				gap: "3rem",
 			}}>
-			<SubEntry width="50%" data={demoSub} />
+			<Toolbar />
+			<SubEntry width="50%" data={seriesData} />
 			<Box
 				sx={{
 					display: "flex",
@@ -36,10 +46,9 @@ const SubView = () => {
 					flexDirection: "column",
 					gap: "1rem",
 				}}>
-				<CommentBox comment={demoComment} />
-				<CommentBox comment={demoComment} />
-				<CommentBox comment={demoComment} />
-				<CommentBox comment={demoComment} />
+				{comments.map((x) => {
+					return <CommentBox comment={x} />;
+				})}
 			</Box>
 		</div>
 	);
