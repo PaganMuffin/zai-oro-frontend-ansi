@@ -29,7 +29,7 @@ const AniListSeriesCard = ({
 			}}>
 			<div
 				style={{
-					backgroundImage: `url(${data.coverImage.large})`,
+					backgroundImage: `url(${data.coverImage.medium})`,
 					backgroundSize: "cover",
 					height: "250px",
 					aspectRatio: 8 / 11,
@@ -41,7 +41,7 @@ const AniListSeriesCard = ({
 					variant="h5"
 					fontWeight={"bold"}
 					style={{ flexGrow: showDescription ? null : "1" }}>
-					{data.title.userPreferred}
+					{data.title.romaji}
 				</Typography>
 				{showDescription == true ? (
 					<Typography fontWeight={"400"} variant="h6" style={{ flexGrow: "1" }}>
