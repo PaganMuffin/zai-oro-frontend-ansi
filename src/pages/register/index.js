@@ -58,6 +58,8 @@ const Register = () => {
 					password,
 					email,
 				}),
+				credentials: "include",
+				mode: "cors",
 			});
 
 			const f_data = await f.json();
@@ -71,6 +73,7 @@ const Register = () => {
 					variant: "success",
 					preventDuplicate: true,
 				});
+				navigate(`/user/${f_data.user}`);
 			}
 		} else {
 			//NOT OK
