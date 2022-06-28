@@ -44,6 +44,10 @@ const Login = () => {
 				variant: "success",
 				preventDuplicate: true,
 			});
+
+			localStorage.setItem("id", f_data.id);
+			localStorage.setItem("role", f_data.role);
+
 			navigate(`/user/${f_data.user}`);
 		}
 	};

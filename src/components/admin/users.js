@@ -74,6 +74,40 @@ const UserAccordion = ({ user, notifyOnDelete }) => {
 		}
 	};
 
+	const handleUpdate = async () => {
+		const api_url = new URL(process.env.REACT_APP_API_URL);
+		api_url.pathname = `/admin/users/${user.id}`;
+		const f = await fetch(api_url.toString(), {
+			method: "put",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify({
+				username,
+				email,
+				role,
+			}),
+			credentials: "include",
+			mode: "cors",
+		});
+		const f_data = await f.json();
+		if (!f.ok) {
+			enqueueSnackbar(f_data.error ?? f_data.message, {
+				variant: "error",
+				preventDuplicate: true,
+			});
+		} else {
+			enqueueSnackbar(f_data.message, {
+				variant: "success",
+				preventDuplicate: true,
+			});
+			notifyOnDelete((prev) => {
+				console.log(prev);
+				return (prev = prev + 1);
+			});
+		}
+	};
+
 	return (
 		<Accordion
 			key={user.id}
@@ -158,7 +192,7 @@ const UserAccordion = ({ user, notifyOnDelete }) => {
 						<Button onClick={handleDelete} color="error" variant="contained">
 							Usuń konto
 						</Button>
-						<Button color="success" variant="contained">
+						<Button onClick={handleUpdate} color="success" variant="contained">
 							Zapisz zmiany
 						</Button>
 					</Box>
