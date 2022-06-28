@@ -40,22 +40,39 @@ const CustomSelect = styled(Select)(() => ({
 	},
 }));
 
-const usersDemo = [
-	{
-		id: "312312-312-3-12-312-",
-		username: "PaganMuffin",
-		avatar: null,
-		email: "PaganMuffin@gmail.com",
-		role: "user",
-	},
-];
-
 const roles = ["admin", "user"];
 
-const UserAccordion = ({ user }) => {
+const UserAccordion = ({ user, notifyOnDelete }) => {
 	const [username, setUsername] = useState(user.username);
 	const [email, setEmail] = useState(user.email);
 	const [role, setRole] = useState(user.role);
+	const { enqueueSnackbar } = useSnackbar();
+
+	const handleDelete = async () => {
+		const api_url = new URL(process.env.REACT_APP_API_URL);
+		api_url.pathname = `/admin/users/${user.id}`;
+		const f = await fetch(api_url.toString(), {
+			method: "delete",
+			credentials: "include",
+			mode: "cors",
+		});
+		const f_data = await f.json();
+		if (!f.ok) {
+			enqueueSnackbar(f_data.error ?? f_data.message, {
+				variant: "error",
+				preventDuplicate: true,
+			});
+		} else {
+			enqueueSnackbar("Użytkownik usunięty", {
+				variant: "success",
+				preventDuplicate: true,
+			});
+			notifyOnDelete((prev) => {
+				console.log(prev);
+				return (prev = prev + 1);
+			});
+		}
+	};
 
 	return (
 		<Accordion
@@ -138,7 +155,7 @@ const UserAccordion = ({ user }) => {
 							justifyContent: "space-between",
 							width: "100%",
 						}}>
-						<Button color="error" variant="contained">
+						<Button onClick={handleDelete} color="error" variant="contained">
 							Usuń konto
 						</Button>
 						<Button color="success" variant="contained">
@@ -158,7 +175,9 @@ const AdminUsers = () => {
 	const [search, setSearch] = useState("");
 	const debounceSearchTerm = useDebounce(search, 500);
 	const { enqueueSnackbar } = useSnackbar();
+	const [countDelete, setCountDelete] = useState(0);
 	useEffect(() => {
+		console.log(countDelete);
 		(async () => {
 			const api_url = new URL(process.env.REACT_APP_API_URL);
 			api_url.pathname = "/admin/users";
@@ -182,7 +201,7 @@ const AdminUsers = () => {
 				setHasNextPage(f_data.hasNext);
 			}
 		})();
-	}, [debounceSearchTerm, page]);
+	}, [debounceSearchTerm, page, countDelete]);
 
 	const incrementPage = () => {
 		if (hasNextPage) setPage(page + 1);
@@ -209,7 +228,13 @@ const AdminUsers = () => {
 				width={"100%"}
 			/>
 			{users.map((user) => {
-				return <UserAccordion key={user.id} user={user} />;
+				return (
+					<UserAccordion
+						notifyOnDelete={setCountDelete}
+						key={user.id}
+						user={user}
+					/>
+				);
 			})}
 			<Box
 				style={{

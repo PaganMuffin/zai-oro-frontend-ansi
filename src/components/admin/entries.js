@@ -11,7 +11,33 @@ import { useEffect, useState } from "react";
 import { useDebounce } from "../../utills";
 import SearchBar from "../SearchBar";
 
-const EntriesAccordion = ({ data }) => {
+const EntriesAccordion = ({ data, notifyOnDelete }) => {
+	const { enqueueSnackbar } = useSnackbar();
+
+	const handleDelete = async () => {
+		const api_url = new URL(process.env.REACT_APP_API_URL);
+		api_url.pathname = `/admin/entries/${data.id}`;
+		const f = await fetch(api_url.toString(), {
+			method: "delete",
+			credentials: "include",
+			mode: "cors",
+		});
+		const f_data = await f.json();
+		if (!f.ok) {
+			enqueueSnackbar(f_data.error ?? f_data.message, {
+				variant: "error",
+				preventDuplicate: true,
+			});
+		} else {
+			enqueueSnackbar("Użytkownik usunięty", {
+				variant: "success",
+				preventDuplicate: true,
+			});
+			notifyOnDelete((prev) => {
+				return (prev = prev + 1);
+			});
+		}
+	};
 	return (
 		<Accordion
 			style={{
@@ -65,7 +91,7 @@ const EntriesAccordion = ({ data }) => {
 							}}>
 							<Button variant="contained">Pobierz</Button>
 						</a>
-						<Button variant="contained" color="error">
+						<Button onClick={handleDelete} variant="contained" color="error">
 							Usuń
 						</Button>
 					</Box>
@@ -82,6 +108,7 @@ const AdminEntries = () => {
 	const [page, setPage] = useState(1);
 	const [hasNextPage, setHasNextPage] = useState(false);
 	const { enqueueSnackbar } = useSnackbar();
+	const [countDelete, setCountDelete] = useState(0);
 
 	useEffect(() => {
 		(async () => {
@@ -97,7 +124,10 @@ const AdminEntries = () => {
 
 			api_url.search = queryString.toString();
 
-			const f = await fetch(api_url.toString());
+			const f = await fetch(api_url.toString(), {
+				credentials: "include",
+				mode: "cors",
+			});
 			const f_data = await f.json();
 			if (!f.ok) {
 				enqueueSnackbar(f_data.error ?? f_data.message, {
@@ -109,7 +139,7 @@ const AdminEntries = () => {
 				setHasNextPage(f_data.hasNext);
 			}
 		})();
-	}, [debounceSearchTerm, page]);
+	}, [debounceSearchTerm, page, countDelete]);
 
 	const incrementPage = () => {
 		if (hasNextPage) setPage(page + 1);
@@ -136,7 +166,13 @@ const AdminEntries = () => {
 				width={"100%"}
 			/>
 			{data.map((entry) => {
-				return <EntriesAccordion key={entry.id} data={entry} />;
+				return (
+					<EntriesAccordion
+						notifyOnDelete={setCountDelete}
+						key={entry.id}
+						data={entry}
+					/>
+				);
 			})}
 			<Box
 				style={{

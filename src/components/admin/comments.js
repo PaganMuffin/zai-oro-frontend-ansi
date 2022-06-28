@@ -6,29 +6,6 @@ import { useDebounce } from "../../utills";
 import CommentBox from "../CommentBox";
 import SearchBar from "../SearchBar";
 
-const comments1 = [
-	{
-		id: "27d4a1c7-c5ac-429d-8ec5-0ba1fb8e8242",
-		content: '{\n\t"content": "TESTOWY KOMENTARZ"\n}',
-		createdAt: 1656209617,
-		user: {
-			id: "8a0afd78-a7f5-49cc-b988-9cb2bb10075d",
-			username: "PaganMuffin",
-			avatar: null,
-		},
-	},
-	{
-		id: "24c1f7ac-debe-4601-96ba-60c6bfd77d80",
-		content: "TESTOWY KOMENTARZ",
-		createdAt: 1656209719,
-		user: {
-			id: "8a0afd78-a7f5-49cc-b988-9cb2bb10075d",
-			username: "PaganMuffin",
-			avatar: null,
-		},
-	},
-];
-
 const AdminComments = () => {
 	const [isAdmin, setIsAdmin] = useState(false);
 	const [comments, setComments] = useState([]);
