@@ -6,7 +6,9 @@ import {
 	Button,
 	Typography,
 } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useDebounce } from "../../utills";
+import SearchBar from "../SearchBar";
 
 const dummyData = {
 	result: [
@@ -142,8 +144,33 @@ const EntriesAccordion = ({ data }) => {
 };
 
 const AdminEntries = () => {
+	const [search, setSearch] = useState("");
+	const [data, setData] = useState([]);
+	const debounceSearchTerm = useDebounce(search, 500);
 	const [page, setPage] = useState(1);
 	const [hasNextPage, setHasNextPage] = useState(false);
+
+	useEffect(() => {
+		(async () => {
+			const api_url = new URL(process.env.REACT_APP_API_URL);
+			api_url.pathname = "/search";
+
+			const queryString = new URLSearchParams();
+
+			queryString.append("p", page);
+			queryString.append("limit", 10);
+
+			if (debounceSearchTerm != "") queryString.append("q", debounceSearchTerm);
+
+			api_url.search = queryString.toString();
+
+			const f = await fetch(api_url.toString());
+			const f_data = await f.json();
+
+			setData(f_data.result);
+			setHasNextPage(f_data.hasNext);
+		})();
+	}, [debounceSearchTerm, page]);
 
 	const incrementPage = () => {
 		if (hasNextPage) setPage(page + 1);
@@ -158,9 +185,18 @@ const AdminEntries = () => {
 			style={{
 				display: "flex",
 				flexDirection: "column",
-				gap: "1rem",
+				gap: 25,
+				width: "100%",
+				margin: "auto",
 			}}>
-			{dummyData.result.map((entry) => {
+			<SearchBar
+				background={`rgb(${process.env.REACT_APP_FOREGROUND})`}
+				color={`rgb(${process.env.REACT_APP_TEXT})`}
+				value={search}
+				setFunction={setSearch}
+				width={"100%"}
+			/>
+			{data.map((entry) => {
 				return <EntriesAccordion key={entry.id} data={entry} />;
 			})}
 			<Box
