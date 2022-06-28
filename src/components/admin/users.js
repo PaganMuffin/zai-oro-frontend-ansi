@@ -56,6 +56,7 @@ const UserAccordion = ({ user }) => {
 
 	return (
 		<Accordion
+			key={user.id}
 			style={{
 				background: `rgb(${process.env.REACT_APP_FOREGROUND})`,
 				color: `rgb(${process.env.REACT_APP_TEXT})`,
@@ -106,7 +107,11 @@ const UserAccordion = ({ user }) => {
 									value={role}
 									onChange={(e) => setRole(e.target.value)}>
 									{roles.map((role) => {
-										return <MenuItem value={role}>{role}</MenuItem>;
+										return (
+											<MenuItem key={role} value={role}>
+												{role}
+											</MenuItem>
+										);
 									})}
 								</CustomSelect>
 							</Box>
@@ -147,7 +152,7 @@ const AdminUsers = () => {
 	return (
 		<Box>
 			{usersDemo.map((user) => {
-				return <UserAccordion user={user} />;
+				return <UserAccordion key={user.id} user={user} />;
 			})}
 		</Box>
 	);

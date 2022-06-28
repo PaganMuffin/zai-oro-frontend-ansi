@@ -55,7 +55,7 @@ const AdminComments = () => {
 				gap: "2rem",
 			}}>
 			{comments.map((x) => {
-				return <CommentBox comment={x} isAdmin={isAdmin} />;
+				return <CommentBox key={x.id} comment={x} isAdmin={isAdmin} />;
 			})}
 			<Box
 				style={{
