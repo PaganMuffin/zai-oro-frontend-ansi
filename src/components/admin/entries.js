@@ -29,7 +29,7 @@ const EntriesAccordion = ({ data, notifyOnDelete }) => {
 				preventDuplicate: true,
 			});
 		} else {
-			enqueueSnackbar("Użytkownik usunięty", {
+			enqueueSnackbar(f.message, {
 				variant: "success",
 				preventDuplicate: true,
 			});
