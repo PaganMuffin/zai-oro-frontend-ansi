@@ -14,6 +14,7 @@ const AdminComments = () => {
 	const [page, setPage] = useState(1);
 	const [hasNextPage, setHasNextPage] = useState(false);
 	const { enqueueSnackbar } = useSnackbar();
+	const [countDelete, setCountDelete] = useState(0);
 
 	useEffect(() => {
 		if (localStorage.getItem("isAdmin") === "true") {
@@ -52,7 +53,7 @@ const AdminComments = () => {
 				setHasNextPage(f_data.hasNext);
 			}
 		})();
-	}, [debounceSearchTerm, page]);
+	}, [debounceSearchTerm, page, countDelete]);
 
 	const incrementPage = () => {
 		if (hasNextPage) setPage(page + 1);
@@ -79,7 +80,14 @@ const AdminComments = () => {
 				width={"100%"}
 			/>
 			{comments.map((x) => {
-				return <CommentBox key={x.id} comment={x} isAdmin={isAdmin} />;
+				return (
+					<CommentBox
+						notifyOnDelete={setCountDelete}
+						key={x.id}
+						comment={x}
+						isAdmin={isAdmin}
+					/>
+				);
 			})}
 			<Box
 				style={{

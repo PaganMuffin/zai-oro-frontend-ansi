@@ -63,7 +63,7 @@ const UserAccordion = ({ user, notifyOnDelete }) => {
 				preventDuplicate: true,
 			});
 		} else {
-			enqueueSnackbar("Użytkownik usunięty", {
+			enqueueSnackbar(f_data.message, {
 				variant: "success",
 				preventDuplicate: true,
 			});
