@@ -6,78 +6,38 @@ import {
 	Button,
 	Typography,
 } from "@mui/material";
-import { useState } from "react";
+import { useSnackbar } from "notistack";
+import { useEffect, useState } from "react";
+import { useDebounce } from "../../utills";
+import SearchBar from "../SearchBar";
 
-const dummyData = {
-	result: [
-		{
-			id: "6404bea5-838c-4b0a-b649-0efe1cb8a197",
-			createdAt: 1656104921,
-			updatedAt: 1656104921,
-			author: "dasdas",
-			episode: 123,
-			filename: "ef2b35d8-64da-4f01-b56f-d2567bbca7fd.ass",
-			series: {
-				id: "d8834f33-80d7-435a-8f29-eea14005cc6a",
-				coverImage: {
-					id: "dcd1ab02-8ba7-44dd-9d32-b0fdedb7e249",
-					medium:
-						"https://s4.anilist.co/file/anilistcdn/media/anime/cover/small/bx123-nTVq4CHgK5Ly.jpg",
-				},
-				title: {
-					id: "bc1b5945-a7c5-4176-afae-3bbbe7d61dc0",
-					romaji: "Fushigi Yuugi",
-				},
-			},
-			description: "asdasdasd",
-		},
-		{
-			id: "9bcc7d70-a232-4eb9-a6eb-5fcb07e79a09",
-			createdAt: 1656121751,
-			updatedAt: 1657121751,
-			author: "6547gc",
-			episode: 12,
-			filename: "4022d94e-fd20-429f-9b5b-1bba3ffdb0c4.ass",
-			series: {
-				id: "b3698b1f-0df3-449f-ba4b-66f900fda3f5",
-				coverImage: {
-					id: "0aa8b903-94a4-4363-9dde-2d1fbd97aed2",
-					medium:
-						"https://s4.anilist.co/file/anilistcdn/media/anime/cover/small/b1234-FxtX1sh0KkLy.png",
-				},
-				title: {
-					id: "21519798-966e-4f73-9c16-ff90ffefd6f9",
-					romaji: "Hand Maid Mai",
-				},
-			},
-			description: "432",
-		},
-		{
-			id: "b55cbe1c-c3af-42e0-a029-71fd358b2e2d",
-			createdAt: 1656204896,
-			updatedAt: 1656204896,
-			author: "dasdas",
-			episode: 1,
-			filename: "51ea9a24-ceb4-4063-a6dd-937b6a5a5045.ass",
-			series: {
-				id: "f1523132-0dcb-4faa-8004-6f8235554af3",
-				coverImage: {
-					id: "2b49d4f8-c710-4bd8-9f0b-0e82165b035f",
-					medium:
-						"https://s4.anilist.co/file/anilistcdn/media/anime/cover/small/bx19-ham53gnijfiN.jpg",
-				},
-				title: {
-					id: "50845f96-f447-4e9d-8222-173b4ee9171c",
-					romaji: "MONSTER",
-				},
-			},
-			description: "dasdasd",
-		},
-	],
-	hasNext: false,
-};
+const EntriesAccordion = ({ data, notifyOnDelete }) => {
+	const { enqueueSnackbar } = useSnackbar();
 
-const EntriesAccordion = ({ data }) => {
+	const handleDelete = async () => {
+		const api_url = new URL(process.env.REACT_APP_API_URL);
+		api_url.pathname = `/admin/entries/${data.id}`;
+		const f = await fetch(api_url.toString(), {
+			method: "delete",
+			credentials: "include",
+			mode: "cors",
+		});
+		const f_data = await f.json();
+		if (!f.ok) {
+			enqueueSnackbar(f_data.error ?? f_data.message, {
+				variant: "error",
+				preventDuplicate: true,
+			});
+		} else {
+			enqueueSnackbar("Użytkownik usunięty", {
+				variant: "success",
+				preventDuplicate: true,
+			});
+			notifyOnDelete((prev) => {
+				return (prev = prev + 1);
+			});
+		}
+	};
 	return (
 		<Accordion
 			style={{
@@ -131,7 +91,7 @@ const EntriesAccordion = ({ data }) => {
 							}}>
 							<Button variant="contained">Pobierz</Button>
 						</a>
-						<Button variant="contained" color="error">
+						<Button onClick={handleDelete} variant="contained" color="error">
 							Usuń
 						</Button>
 					</Box>
@@ -142,8 +102,44 @@ const EntriesAccordion = ({ data }) => {
 };
 
 const AdminEntries = () => {
+	const [search, setSearch] = useState("");
+	const [data, setData] = useState([]);
+	const debounceSearchTerm = useDebounce(search, 500);
 	const [page, setPage] = useState(1);
 	const [hasNextPage, setHasNextPage] = useState(false);
+	const { enqueueSnackbar } = useSnackbar();
+	const [countDelete, setCountDelete] = useState(0);
+
+	useEffect(() => {
+		(async () => {
+			const api_url = new URL(process.env.REACT_APP_API_URL);
+			api_url.pathname = "/admin/entries";
+
+			const queryString = new URLSearchParams();
+
+			queryString.append("p", page);
+			queryString.append("limit", 10);
+
+			if (debounceSearchTerm != "") queryString.append("q", debounceSearchTerm);
+
+			api_url.search = queryString.toString();
+
+			const f = await fetch(api_url.toString(), {
+				credentials: "include",
+				mode: "cors",
+			});
+			const f_data = await f.json();
+			if (!f.ok) {
+				enqueueSnackbar(f_data.error ?? f_data.message, {
+					variant: "error",
+					preventDuplicate: true,
+				});
+			} else {
+				setData(f_data.result);
+				setHasNextPage(f_data.hasNext);
+			}
+		})();
+	}, [debounceSearchTerm, page, countDelete]);
 
 	const incrementPage = () => {
 		if (hasNextPage) setPage(page + 1);
@@ -158,10 +154,25 @@ const AdminEntries = () => {
 			style={{
 				display: "flex",
 				flexDirection: "column",
-				gap: "1rem",
+				gap: 25,
+				width: "100%",
+				margin: "auto",
 			}}>
-			{dummyData.result.map((entry) => {
-				return <EntriesAccordion key={entry.id} data={entry} />;
+			<SearchBar
+				background={`rgb(${process.env.REACT_APP_FOREGROUND})`}
+				color={`rgb(${process.env.REACT_APP_TEXT})`}
+				value={search}
+				setFunction={setSearch}
+				width={"100%"}
+			/>
+			{data.map((entry) => {
+				return (
+					<EntriesAccordion
+						notifyOnDelete={setCountDelete}
+						key={entry.id}
+						data={entry}
+					/>
+				);
 			})}
 			<Box
 				style={{

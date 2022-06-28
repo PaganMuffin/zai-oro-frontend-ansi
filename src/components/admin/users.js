@@ -16,8 +16,11 @@ import {
 	TableHead,
 	Typography,
 } from "@mui/material";
-import { useState } from "react";
+import { useSnackbar } from "notistack";
+import { useEffect, useState } from "react";
+import { useDebounce } from "../../utills";
 import CustomInputWithLabel from "../CustomInputWithLabel";
+import SearchBar from "../SearchBar";
 
 const CustomSelect = styled(Select)(() => ({
 	width: 300,
@@ -37,22 +40,39 @@ const CustomSelect = styled(Select)(() => ({
 	},
 }));
 
-const usersDemo = [
-	{
-		id: "312312-312-3-12-312-",
-		username: "PaganMuffin",
-		avatar: null,
-		email: "PaganMuffin@gmail.com",
-		role: "user",
-	},
-];
-
 const roles = ["admin", "user"];
 
-const UserAccordion = ({ user }) => {
+const UserAccordion = ({ user, notifyOnDelete }) => {
 	const [username, setUsername] = useState(user.username);
 	const [email, setEmail] = useState(user.email);
 	const [role, setRole] = useState(user.role);
+	const { enqueueSnackbar } = useSnackbar();
+
+	const handleDelete = async () => {
+		const api_url = new URL(process.env.REACT_APP_API_URL);
+		api_url.pathname = `/admin/users/${user.id}`;
+		const f = await fetch(api_url.toString(), {
+			method: "delete",
+			credentials: "include",
+			mode: "cors",
+		});
+		const f_data = await f.json();
+		if (!f.ok) {
+			enqueueSnackbar(f_data.error ?? f_data.message, {
+				variant: "error",
+				preventDuplicate: true,
+			});
+		} else {
+			enqueueSnackbar("Użytkownik usunięty", {
+				variant: "success",
+				preventDuplicate: true,
+			});
+			notifyOnDelete((prev) => {
+				console.log(prev);
+				return (prev = prev + 1);
+			});
+		}
+	};
 
 	return (
 		<Accordion
@@ -135,7 +155,7 @@ const UserAccordion = ({ user }) => {
 							justifyContent: "space-between",
 							width: "100%",
 						}}>
-						<Button color="error" variant="contained">
+						<Button onClick={handleDelete} color="error" variant="contained">
 							Usuń konto
 						</Button>
 						<Button color="success" variant="contained">
@@ -149,11 +169,102 @@ const UserAccordion = ({ user }) => {
 };
 
 const AdminUsers = () => {
+	const [users, setUsers] = useState([]);
+	const [page, setPage] = useState(1);
+	const [hasNextPage, setHasNextPage] = useState(false);
+	const [search, setSearch] = useState("");
+	const debounceSearchTerm = useDebounce(search, 500);
+	const { enqueueSnackbar } = useSnackbar();
+	const [countDelete, setCountDelete] = useState(0);
+	useEffect(() => {
+		console.log(countDelete);
+		(async () => {
+			const api_url = new URL(process.env.REACT_APP_API_URL);
+			api_url.pathname = "/admin/users";
+			const queryString = new URLSearchParams();
+			queryString.append("p", page);
+			queryString.append("limit", 10);
+			if (debounceSearchTerm != "") queryString.append("q", debounceSearchTerm);
+			api_url.search = queryString.toString();
+			const f = await fetch(api_url.toString(), {
+				credentials: "include",
+				mode: "cors",
+			});
+			const f_data = await f.json();
+			if (!f.ok) {
+				enqueueSnackbar(f_data.error ?? f_data.message, {
+					variant: "error",
+					preventDuplicate: true,
+				});
+			} else {
+				setUsers(f_data.result);
+				setHasNextPage(f_data.hasNext);
+			}
+		})();
+	}, [debounceSearchTerm, page, countDelete]);
+
+	const incrementPage = () => {
+		if (hasNextPage) setPage(page + 1);
+	};
+
+	const decrementPage = () => {
+		if (page > 1) setPage(page - 1);
+	};
+
 	return (
-		<Box>
-			{usersDemo.map((user) => {
-				return <UserAccordion key={user.id} user={user} />;
+		<Box
+			style={{
+				display: "flex",
+				flexDirection: "column",
+				gap: 25,
+				width: "100%",
+				margin: "auto",
+			}}>
+			<SearchBar
+				background={`rgb(${process.env.REACT_APP_FOREGROUND})`}
+				color={`rgb(${process.env.REACT_APP_TEXT})`}
+				value={search}
+				setFunction={setSearch}
+				width={"100%"}
+			/>
+			{users.map((user) => {
+				return (
+					<UserAccordion
+						notifyOnDelete={setCountDelete}
+						key={user.id}
+						user={user}
+					/>
+				);
 			})}
+			<Box
+				style={{
+					display: "flex",
+					flexDirection: "row",
+					justifyContent: "space-between",
+					width: "100%",
+				}}>
+				<Button
+					disabled={page === 1}
+					onClick={decrementPage}
+					style={{
+						color:
+							page === 1 ? `rgba(${process.env.REACT_APP_TEXT},0.2)` : null,
+					}}
+					variant="contained">
+					Poprzednia strona
+				</Button>
+				<Button
+					disabled={!hasNextPage}
+					style={{
+						color: !hasNextPage
+							? `rgba(${process.env.REACT_APP_TEXT},0.2)`
+							: null,
+					}}
+					onClick={incrementPage}
+					variant="contained">
+					Następna strona
+				</Button>
+			</Box>
 		</Box>
 	);
 };
