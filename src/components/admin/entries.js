@@ -153,7 +153,7 @@ const AdminEntries = () => {
 	useEffect(() => {
 		(async () => {
 			const api_url = new URL(process.env.REACT_APP_API_URL);
-			api_url.pathname = "/search";
+			api_url.pathname = "/admin/entries";
 
 			const queryString = new URLSearchParams();
 
