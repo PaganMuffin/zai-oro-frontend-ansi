@@ -20,6 +20,7 @@ import AddSub from "../add-page";
 import User from "../user";
 import SeriesView from "../series-view";
 import SearchView from "../search-page";
+import AdminPanel from "../admin";
 
 const demoSub = {
 	title: "SPY×FAMILY",
@@ -109,6 +110,8 @@ const MainPage = (props) => {
 					<Route path="/user/:id/*" element={<User />} />
 					<Route path="/series/:id/*" element={<SeriesView />} />
 					<Route path="/add" element={<AddSub />} />
+					<Route path="/admin/:tab" element={<AdminPanel />} />
+					<Route path="/admin" element={<AdminPanel />} />
 					<Route path="*" element={<SearchView />} />
 				</Routes>
 			</Box>
