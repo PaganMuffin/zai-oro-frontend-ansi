@@ -49,7 +49,7 @@ const AdminPanel = () => {
 					label="Komentarze"
 				/>
 			</Tabs>
-			<Box style={{ width: "100%", wordBreak: "break-all" }}>
+			<Box style={{ width: "100%", marginTop: 10 }}>
 				<TabPanel value={selectedTab} index={0}>
 					<AdminUsers />
 				</TabPanel>
