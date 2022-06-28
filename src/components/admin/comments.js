@@ -4,6 +4,7 @@ import { useSnackbar } from "notistack";
 import { useDebugValue, useEffect, useState } from "react";
 import { useDebounce } from "../../utills";
 import CommentBox from "../CommentBox";
+import SearchBar from "../SearchBar";
 
 const comments1 = [
 	{
@@ -89,10 +90,17 @@ const AdminComments = () => {
 			style={{
 				display: "flex",
 				flexDirection: "column",
-				gap: "1rem",
+				gap: 25,
 				width: "100%",
 				margin: "auto",
 			}}>
+			<SearchBar
+				background={`rgb(${process.env.REACT_APP_FOREGROUND})`}
+				color={`rgb(${process.env.REACT_APP_TEXT})`}
+				value={search}
+				setFunction={setSearch}
+				width={"100%"}
+			/>
 			{comments.map((x) => {
 				return <CommentBox key={x.id} comment={x} isAdmin={isAdmin} />;
 			})}
