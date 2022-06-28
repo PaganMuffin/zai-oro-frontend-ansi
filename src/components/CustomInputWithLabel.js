@@ -11,6 +11,7 @@ const CustomInputWithLabel = ({
 	readOnly = false,
 	color = "black",
 	background = "white",
+	minRows = 1,
 }) => {
 	return (
 		<div
@@ -29,6 +30,7 @@ const CustomInputWithLabel = ({
 				}}>
 				<InputBase
 					readOnly={readOnly}
+					minRows={minRows}
 					multiline={multiline}
 					style={{
 						paddingLeft: "0.5rem",
