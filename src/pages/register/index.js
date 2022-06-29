@@ -75,7 +75,9 @@ const Register = () => {
 					variant: "success",
 					preventDuplicate: true,
 				});
-				navigate(`/user/${f_data.user}`);
+				localStorage.setItem("id", f_data.id);
+				localStorage.setItem("role", f_data.role);
+				navigate(`/user/${f_data.id}`);
 			}
 		} else {
 			//NOT OK
