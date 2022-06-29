@@ -16,6 +16,24 @@ const App = () => {
 	useEffect(() => {
 		document.body.style.backgroundColor = `rgb(${process.env.REACT_APP_BACKGROUND})`;
 		document.body.style.color = `rgb(${process.env.REACT_APP_TEXT})`;
+
+		const interval = setInterval(async () => {
+			const f = await fetch(`${process.env.REACT_APP_API_URL}/user/@me`, {
+				method: "get",
+				credentials: "include",
+				mode: "cors",
+			});
+			const f_data = await f.json();
+			if (f.ok) {
+				console.log(f_data);
+				localStorage.setItem("id", f_data.id);
+				localStorage.setItem("role", f_data.role);
+				localStorage.setItem("username", f_data.username);
+			} else {
+				localStorage.clear();
+			}
+		}, 30000);
+		return () => clearInterval(interval);
 	}, []);
 	return (
 		<div>

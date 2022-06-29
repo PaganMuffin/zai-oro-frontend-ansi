@@ -1,103 +1,8 @@
-import {
-	Button,
-	Chip,
-	Table,
-	TableBody,
-	TableCell,
-	TableContainer,
-	TableHead,
-	TableRow,
-	Toolbar,
-	Typography,
-} from "@mui/material";
+import { Button, Chip, Toolbar, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import SeriesEpisodeList from "../../components/SeriesEpisodeList";
-import CollapsibleTable from "../../components/SeriesEpisodeList";
-import { getRandomIntInclusive } from "../../utills";
 import "./index.css";
-
-const demoData = {
-	id: 114129,
-	title: {
-		userPreferred: "Gintama: THE FINAL",
-	},
-	coverImage: {
-		extraLarge:
-			"https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx114129-RLgSuh6YbeYx.jpg",
-		large:
-			"https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx114129-RLgSuh6YbeYx.jpg",
-		color: "#e48643",
-	},
-	startDate: {
-		year: 2021,
-		month: 1,
-		day: 8,
-	},
-	endDate: {
-		year: 2021,
-		month: 1,
-		day: 8,
-	},
-	bannerImage:
-		"https://s4.anilist.co/file/anilistcdn/media/anime/banner/114129-ZsLDkdwaYeJY.jpg",
-	season: "WINTER",
-	seasonYear: 2021,
-	description:
-		"<i>Gintama: THE FINAL</i> is the 3rd and final film adaptation of the remainder of the Silver Soul arc and is the series finale. <i>Gintama: THE FINAL</i> is the 3rd and final film adaptation of the remainder of the Silver Soul arc and is the series finale. <i>Gintama: THE FINAL</i> is the 3rd and final film adaptation of the remainder of the Silver Soul arc and is the series finale.",
-	type: "ANIME",
-	format: "MOVIE",
-	status: "FINISHED",
-	episodes: 1,
-	duration: 104,
-	chapters: null,
-	volumes: null,
-	genres: ["Action", "Comedy", "Drama", "Sci-Fi"],
-	isAdult: false,
-	averageScore: 92,
-	popularity: 23075,
-	nextAiringEpisode: null,
-	mediaListEntry: null,
-	studios: {
-		edges: [
-			{
-				isMain: true,
-				node: {
-					id: 6116,
-					name: "Bandai Namco Pictures",
-				},
-			},
-		],
-	},
-};
-
-const demoSubs = [
-	{
-		episode: 1,
-		subList: [
-			{
-				id: "1",
-				author: "PaganMuffin",
-				addedAt: new Date().getTime() - getRandomIntInclusive(10000, 50000),
-			},
-			{
-				id: "2",
-				author: "Ogórek",
-				addedAt: new Date().getTime() - getRandomIntInclusive(10000, 50000),
-			},
-		],
-	},
-	{
-		episode: 2,
-		subList: [
-			{
-				id: "3",
-				author: "PaganMuffin",
-				addedAt: new Date().getTime() - getRandomIntInclusive(10000, 50000),
-			},
-		],
-	},
-];
 
 const SeriesView = () => {
 	const [seriesData, setSeriesData] = useState(null);
@@ -207,22 +112,36 @@ const SeriesView = () => {
 						/>
 					</div>
 					<div style={{ display: "flex", gap: 20 }}>
-						<Button
+						<a
+							href={`https://myanimelist.net/anime/${seriesData.idMal}`}
+							target="_blank"
 							style={{
-								color: `rgb(${process.env.REACT_APP_TEXT})`,
-								background: `rgb(${process.env.REACT_APP_FOREGROUND})`,
-							}}
-							variant="contained">
-							MyAnimeList {seriesData.idMal}
-						</Button>
-						<Button
+								textDecoration: "none",
+							}}>
+							<Button
+								style={{
+									color: `rgb(${process.env.REACT_APP_TEXT})`,
+									background: `rgb(${process.env.REACT_APP_FOREGROUND})`,
+								}}
+								variant="contained">
+								MyAnimeList
+							</Button>
+						</a>
+						<a
+							href={`https://anilist.co/anime/${seriesData.alId}`}
+							target="_blank"
 							style={{
-								color: `rgb(${process.env.REACT_APP_TEXT})`,
-								background: `rgb(${process.env.REACT_APP_FOREGROUND})`,
-							}}
-							variant="contained">
-							AniList {seriesData.alId}
-						</Button>
+								textDecoration: "none",
+							}}>
+							<Button
+								style={{
+									color: `rgb(${process.env.REACT_APP_TEXT})`,
+									background: `rgb(${process.env.REACT_APP_FOREGROUND})`,
+								}}
+								variant="contained">
+								AniList
+							</Button>
+						</a>
 					</div>
 				</div>
 				<Typography
