@@ -1,4 +1,5 @@
 import { Paper, Box, Typography, Button } from "@mui/material";
+import { Link } from "react-router-dom";
 
 const SubEntry = ({ data, width = "100%" }) => {
 	return (
@@ -40,19 +41,38 @@ const SubEntry = ({ data, width = "100%" }) => {
 					}}>
 					<Typography variant="h6">Autor: {data.author}</Typography>
 				</Box>
-				<a
-					href={`${process.env.REACT_APP_API_URL}/file/${data.filename}`}
-					download={data.filename}
-					target="_blank"
+				<Box
 					style={{
-						textDecoration: "none",
-						alignSelf: "end",
-						marginBottom: "0 auto",
+						display: "flex",
+						flexDirection: "row",
+						justifyContent: "space-evenly",
 					}}>
-					<Button variant="contained" size="large">
-						Pobierz
-					</Button>
-				</a>
+					<Link to={`/view/${data.id}`} style={{ textDecoration: "none" }}>
+						<Button variant="contained" size="large">
+							Wyświetl
+						</Button>
+					</Link>
+					<Link
+						to={`/series/${data.series.id}`}
+						style={{ textDecoration: "none" }}>
+						<Button variant="contained" size="large">
+							Wyświetl serie
+						</Button>
+					</Link>
+					<a
+						href={`${process.env.REACT_APP_API_URL}/file/${data.filename}`}
+						download={data.filename}
+						target="_blank"
+						style={{
+							textDecoration: "none",
+							alignSelf: "end",
+							marginBottom: "0 auto",
+						}}>
+						<Button variant="contained" size="large">
+							Pobierz
+						</Button>
+					</a>
+				</Box>
 			</Box>
 		</Paper>
 	);

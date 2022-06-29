@@ -2,6 +2,7 @@ import { CompareSharp } from "@mui/icons-material";
 import { Button, Paper, Typography } from "@mui/material";
 import { useSnackbar } from "notistack";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import CustomInputWithLabel from "../../components/CustomInputWithLabel";
 import { validateEmail, checkPassword } from "../../utills";
 
@@ -12,6 +13,7 @@ const Register = () => {
 	const [passwordConfirm, setPasswordConfirm] = useState("");
 	const { enqueueSnackbar } = useSnackbar();
 
+	const navigate = useNavigate();
 	useEffect(() => {
 		console.log("Login page rendered");
 	}, []);
@@ -73,7 +75,9 @@ const Register = () => {
 					variant: "success",
 					preventDuplicate: true,
 				});
-				navigate(`/user/${f_data.user}`);
+				localStorage.setItem("id", f_data.id);
+				localStorage.setItem("role", f_data.role);
+				navigate(`/user/${f_data.id}`);
 			}
 		} else {
 			//NOT OK
