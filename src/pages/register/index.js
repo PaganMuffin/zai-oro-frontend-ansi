@@ -77,7 +77,7 @@ const Register = () => {
 				});
 				localStorage.setItem("id", f_data.id);
 				localStorage.setItem("role", f_data.role);
-				navigate(`/user/${f_data.user}`);
+				navigate(`/user/${f_data.id}`);
 			}
 		} else {
 			//NOT OK

@@ -2,6 +2,9 @@ import { Avatar, Box, Paper, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
 
 const DrawerProfilCard = () => {
+	const id = localStorage.getItem("id");
+	const username = localStorage.getItem("username");
+
 	return (
 		<Box
 			style={{
@@ -12,40 +15,35 @@ const DrawerProfilCard = () => {
 				color: `rgb(${process.env.REACT_APP_TEXT})`,
 			}}>
 			<Link
-				to={"/user/1/PaganMuffin"}
+				to={`/user/${id}`}
 				style={{
 					textDecoration: "none",
 				}}>
 				<Avatar sx={{ width: 56, height: 56 }} />
 			</Link>
-			<Box>
+			<Box
+				style={{
+					//overflow
+					whiteSpace: "nowrap",
+					textOverflow: "ellipsis",
+					overflow: "hidden",
+				}}>
 				<Link
-					to={"/user/1/PaganMuffin"}
+					to={`/user/${id}`}
 					style={{
 						textDecoration: "none",
 						color: `rgb(${process.env.REACT_APP_TEXT})`,
 					}}>
-					<Typography variant="h6">PaganMuffin</Typography>
+					<Typography
+						style={{
+							whiteSpace: "nowrap",
+							textOverflow: "ellipsis",
+							overflow: "hidden",
+						}}
+						variant="h6">
+						{username}
+					</Typography>
 				</Link>
-
-				<Box>
-					<Link
-						to={"/user/settings"}
-						style={{
-							textDecoration: "none",
-							color: `rgb(${process.env.REACT_APP_TEXT})`,
-						}}>
-						<Typography variant="subtitle2">Ustawienia</Typography>
-					</Link>
-					<Link
-						to={"/user/messeges"}
-						style={{
-							textDecoration: "none",
-							color: `rgb(${process.env.REACT_APP_TEXT})`,
-						}}>
-						<Typography variant="subtitle2">Wiadomosci</Typography>
-					</Link>
-				</Box>
 			</Box>
 		</Box>
 	);
