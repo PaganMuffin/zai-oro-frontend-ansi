@@ -10,6 +10,7 @@ import {
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import "./SeriesEpisodeList.css";
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 const Row = ({ data, ep }) => {
 	return (
@@ -18,16 +19,26 @@ const Row = ({ data, ep }) => {
 			style={{ alignItems: "center", alignContent: "center" }}>
 			<Typography className="episode"></Typography>
 			<Typography className="author">{data.author}</Typography>
-			<Button
-				className="comments"
-				style={{ color: `rgb(${process.env.REACT_APP_TEXT})` }}>
-				Komentarze
-			</Button>
-			<Button
-				className="download"
-				style={{ color: `rgb(${process.env.REACT_APP_TEXT})` }}>
-				Pobierz
-			</Button>
+			<Link className="comments" to={`/view/${data.id}`}>
+				<Button style={{ color: `rgb(${process.env.REACT_APP_TEXT})` }}>
+					Komentarze
+				</Button>
+			</Link>
+			<a
+				href={`${process.env.REACT_APP_API_URL}/file/${data.filename}`}
+				download={data.filename}
+				target="_blank"
+				style={{
+					textDecoration: "none",
+					alignSelf: "end",
+					marginBottom: "0 auto",
+				}}>
+				<Button
+					className="download"
+					style={{ color: `rgb(${process.env.REACT_APP_TEXT})` }}>
+					Pobierz
+				</Button>
+			</a>
 			<Typography className="added" style={{ textAlign: "end" }}>
 				{new Date(data.createdAt * 1000).toLocaleDateString()}
 			</Typography>
@@ -70,16 +81,28 @@ const SeriesEpisodeList = ({ data }) => {
 							}}>
 							<Typography className="episode">Odcinek {x.episode}</Typography>
 							<Typography className="author">{x.subList[0].author}</Typography>
-							<Button
+							<Link
 								className="comments"
-								style={{ color: `rgb(${process.env.REACT_APP_TEXT})` }}>
-								Komentarze
-							</Button>
-							<Button
+								to={`/view/${x.subList[0].id}`}
+								style={{ textDecoration: "none" }}>
+								<Button style={{ color: `rgb(${process.env.REACT_APP_TEXT})` }}>
+									Komentarze
+								</Button>
+							</Link>
+							<a
 								className="download"
-								style={{ color: `rgb(${process.env.REACT_APP_TEXT})` }}>
-								Pobierz
-							</Button>
+								href={`${process.env.REACT_APP_API_URL}/file/${x.subList[0].filename}`}
+								download={x.subList[0].filename}
+								target="_blank"
+								style={{
+									textDecoration: "none",
+									alignSelf: "end",
+									marginBottom: "0 auto",
+								}}>
+								<Button style={{ color: `rgb(${process.env.REACT_APP_TEXT})` }}>
+									Pobierz
+								</Button>
+							</a>
 							<Typography className="added" style={{ textAlign: "end" }}>
 								{new Date(x.subList[0].createdAt * 1000).toLocaleDateString()}
 							</Typography>

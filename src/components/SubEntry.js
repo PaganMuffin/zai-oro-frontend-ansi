@@ -47,6 +47,13 @@ const SubEntry = ({ data, width = "100%" }) => {
 						flexDirection: "row",
 						justifyContent: "space-evenly",
 					}}>
+					{data.uploaderId == localStorage.getItem("id") ? (
+						<Link to={`/edit/${data.id}`} style={{ textDecoration: "none" }}>
+							<Button color="warning" variant="contained" size="large">
+								Edytuj
+							</Button>
+						</Link>
+					) : null}
 					<Link to={`/view/${data.id}`} style={{ textDecoration: "none" }}>
 						<Button variant="contained" size="large">
 							Wyświetl

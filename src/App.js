@@ -29,6 +29,8 @@ const App = () => {
 				localStorage.setItem("id", f_data.id);
 				localStorage.setItem("role", f_data.role);
 				localStorage.setItem("username", f_data.username);
+			} else {
+				localStorage.clear();
 			}
 		}, 10000);
 		return () => clearInterval(interval);
