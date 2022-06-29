@@ -82,35 +82,37 @@ const SubView = () => {
 			}}>
 			<Toolbar />
 			<SubEntry width="100%" data={seriesData} />
-			<Box
-				style={{
-					display: "flex",
-					flexDirection: "column",
-					gap: "1rem",
-					width: "100%",
-				}}>
-				<CustomInputWithLabel
-					multiline={true}
-					minRows={3}
-					label={"Komentarz"}
-					value={comment}
-					setFunction={setComment}
-					color={`rgb(${process.env.REACT_APP_TEXT})`}
-					background={`rgb(${process.env.REACT_APP_FOREGROUND})`}
-				/>
-				<Button
-					onClick={handleCommentAdd}
-					variant="contained"
-					disabled={comment.length == 0}
+			{localStorage.getItem("id") ? (
+				<Box
 					style={{
-						color:
-							comment.length == 0
-								? `rgba(${process.env.REACT_APP_TEXT},0.2)`
-								: null,
+						display: "flex",
+						flexDirection: "column",
+						gap: "1rem",
+						width: "100%",
 					}}>
-					Doddaj
-				</Button>
-			</Box>
+					<CustomInputWithLabel
+						multiline={true}
+						minRows={3}
+						label={"Komentarz"}
+						value={comment}
+						setFunction={setComment}
+						color={`rgb(${process.env.REACT_APP_TEXT})`}
+						background={`rgb(${process.env.REACT_APP_FOREGROUND})`}
+					/>
+					<Button
+						onClick={handleCommentAdd}
+						variant="contained"
+						disabled={comment.length == 0}
+						style={{
+							color:
+								comment.length == 0
+									? `rgba(${process.env.REACT_APP_TEXT},0.2)`
+									: null,
+						}}>
+						Doddaj
+					</Button>
+				</Box>
+			) : null}
 
 			<Box
 				sx={{

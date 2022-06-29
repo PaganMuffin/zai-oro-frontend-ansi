@@ -207,22 +207,36 @@ const SeriesView = () => {
 						/>
 					</div>
 					<div style={{ display: "flex", gap: 20 }}>
-						<Button
+						<a
+							href={`https://myanimelist.net/anime/${seriesData.idMal}`}
+							target="_blank"
 							style={{
-								color: `rgb(${process.env.REACT_APP_TEXT})`,
-								background: `rgb(${process.env.REACT_APP_FOREGROUND})`,
-							}}
-							variant="contained">
-							MyAnimeList {seriesData.idMal}
-						</Button>
-						<Button
+								textDecoration: "none",
+							}}>
+							<Button
+								style={{
+									color: `rgb(${process.env.REACT_APP_TEXT})`,
+									background: `rgb(${process.env.REACT_APP_FOREGROUND})`,
+								}}
+								variant="contained">
+								MyAnimeList
+							</Button>
+						</a>
+						<a
+							href={`https://anilist.co/anime/${seriesData.alId}`}
+							target="_blank"
 							style={{
-								color: `rgb(${process.env.REACT_APP_TEXT})`,
-								background: `rgb(${process.env.REACT_APP_FOREGROUND})`,
-							}}
-							variant="contained">
-							AniList {seriesData.alId}
-						</Button>
+								textDecoration: "none",
+							}}>
+							<Button
+								style={{
+									color: `rgb(${process.env.REACT_APP_TEXT})`,
+									background: `rgb(${process.env.REACT_APP_FOREGROUND})`,
+								}}
+								variant="contained">
+								AniList
+							</Button>
+						</a>
 					</div>
 				</div>
 				<Typography

@@ -17,7 +17,7 @@ const AdminComments = () => {
 	const [countDelete, setCountDelete] = useState(0);
 
 	useEffect(() => {
-		if (localStorage.getItem("isAdmin") === "true") {
+		if (localStorage.getItem("role") === "admin") {
 			setIsAdmin(true);
 		}
 	}, []);

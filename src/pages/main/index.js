@@ -38,7 +38,7 @@ const demoSub = {
 
 const MainPage = (props) => {
 	const [drawerWidth, setDrawerWidth] = useState(240);
-	const [open, setOpen] = useState(true);
+	const [open, setOpen] = useState(false);
 	const [appBarTransparent, setAppBarTransparent] = useState(0.2);
 	const { enqueueSnackbar } = useSnackbar();
 
@@ -192,6 +192,24 @@ const MainPage = (props) => {
 									<Typography variant="h6">Dodaj napisy</Typography>
 								</Button>
 							</Link>
+							{localStorage.getItem("role") == "admin" ? (
+								<Link
+									to="/admin"
+									style={{
+										textDecoration: "none",
+										height: "50px",
+									}}>
+									<Button
+										style={{
+											height: "50px",
+											width: "100%",
+											color: `rgb(${process.env.REACT_APP_TEXT})`,
+											background: `rgb(${process.env.REACT_APP_BACKGROUND})`,
+										}}>
+										<Typography variant="h6">Panel admina</Typography>
+									</Button>
+								</Link>
+							) : null}
 							<Button
 								onClick={LogOut}
 								style={{
