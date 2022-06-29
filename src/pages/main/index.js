@@ -24,6 +24,7 @@ import SearchView from "../search-page";
 import AdminPanel from "../admin";
 import { LogOut } from "../../utills";
 import { useSnackbar } from "notistack";
+import EditPage from "../edit-page";
 
 const demoSub = {
 	title: "SPY×FAMILY",
@@ -228,6 +229,7 @@ const MainPage = (props) => {
 			<Box component="main" style={{ flexGrow: 1 }}>
 				<Routes>
 					<Route path="/view/:id" element={<SubView />} />
+					<Route path="/edit/:id" element={<EditPage />} />
 					<Route path="/user/:id/*" element={<User />} />
 					<Route path="/series/:id/*" element={<SeriesView />} />
 					<Route path="/add" element={<AddSub />} />
